@@ -57,7 +57,13 @@ def home(request):
         questions = short_list.filter(title__icontains=query)
         resulted = questions.annotate(num_answers=Count('answer'))
         counted = questions.count()
-        return render(request, 'main/search.html', {'questions': questions, 'query':query, 'counted':counted, 'resulted':resulted})
+        context1 = {
+            'questions': questions,
+            'query': query,
+            'counted': counted,
+            'resulted': resulted,
+        }
+        return render(request, 'main/search.html',context1)
     context = {
         'questions': questions,
         'numbers': numbers,
