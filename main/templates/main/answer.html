@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+<h1>{{ questions.title }}</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    {{form |crispy}}
+    <input type="submit" value="Add Answer" class="btn btn-md btn-warning">
+</form>
+<p class="lead text-center">Note: If you answer a single question more than once and try to delete one later, your both answers will be deleted. So try to answer the question in first attempt. If you have any problem in the first answer, you can edit it as many times as you like.</p>
+
+</div>
+{% endblock %}

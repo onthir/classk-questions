@@ -1,0 +1,84 @@
+{% extends 'main/base.html' %} {% block content %}
+
+<div class="container">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button> {{ message }}
+    </div>
+    {% endfor %}
+</div>
+<!-- end of the message container -->
+<!-- start of the actual questions -->
+<div class="container-fluid">
+    <h1 class="text-left" id="brand"> Recently Added Questions</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <div id="qtns">
+                {% for q in results %}
+                <a href="{% url 'main:details' q.slug %}" id="questions">
+                    <h4 id="titleq">{{ q.title }}</h4>
+                </a>
+                <a href="{% url 'main:filter' q.category %}">
+                    <p class="badge badge-info">{{ q.category }}</p>
+                </a>
+                <p id="titleq">{{ q.date |timesince }} ago. <a href="{% url 'accounts:profile' q.user %}" id="questions" style=" padding: 2px; border:1px solid orange;">{{ q.user }}</a></p>
+                <div class="text-right">
+                    <p>Answers: {{q.num_answers}}</p>
+                </div>
+                <hr> {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div id="qtns1">
+                <br> {% if not user.is_authenticated %}
+                <a href="{% url 'accounts:login' %}?next={% url 'main:ask-question' %}" class="btn btn-md btn-info">Ask Question</a><br><br> {% else %}
+                <a href="{% url 'main:ask-question' %}" class="btn btn-md btn-warning">Ask Quesiton</a><br><br> {% endif %}
+
+                <div class="qtns2">
+                    <h1 id="titleq">Statistics</h1>
+                    <p>Questions asked: {{numbers}} </p>
+                    <p>Answers: {{ numbers2 }}</p>
+                    <p>Total Users: {{ total_users }}</p>
+                </div> <br>
+                <div class="qtns2">
+                    Most answered:
+                    <a href="{% url 'main:details' trend.slug %}" style="text-decoration:none;">
+                        <p>{{ trend }}</a> - <i>{{ trend.user }}</i></p>
+                    <p><i>Posted On: </i>{{ trend.date}}</p>
+                </div>
+                <br>
+                <div class="qtns2">
+                    Most Questions By:
+                    <a href="{% url 'accounts:profile' trend.user %}" style="text-decoration:none;">
+                        <p>{{ trend.user }}</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- pagination for the limited display of questions -->
+    <nav aria-label='pagination'>
+        {% if results.has_other_pages %}
+        <ul class="pagination">
+            {% if results.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ results.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+            {% endif %} {% for i in results.paginator.page_range %} {% if results.number == i %}
+            <li class=" page-item active"><span class="page-link">{{ i }} <span class="sr-only">(current)</span></span>
+            </li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %} {% endfor %} {% if questions.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ results.next_page_number }}">&raquo;</a></li>
+            {% else %}
+            <li class=" page-item disabled"><span class="page-link">&raquo;</span></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+{% endif %} {% endblock %}

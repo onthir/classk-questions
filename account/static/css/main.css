@@ -1,0 +1,256 @@
+body {
+    background: #e6e6e6;
+}
+
+
+/* *************************************************
+*STYLINGS FOR THE LOGIN PAGE                       *
+*CONTENTS --> CARD, BRAND, BUTTON, LINKS AND FORMS *
+****************************************************
+*
+*/
+
+
+/* login card styling */
+
+#login-card-0 {
+    background: teal;
+    color: white;
+}
+
+
+/* login button */
+
+#button-0 {
+    background: orange;
+    color: white;
+}
+
+#button-0:hover {
+    opacity: 0.8;
+    border: 1px solid white;
+}
+
+
+/* register link */
+
+#link {
+    color: orange;
+}
+
+#link:hover {
+    color: white;
+    text-decoration: none;
+}
+
+
+/* checkbox */
+
+#check0 {
+    background: teal;
+}
+
+
+/* error message while login */
+
+#error {
+    color: red;
+    background: white;
+}
+
+
+/* *************************************************
+*STYLINGS FOR THE   REGISTRATION  PAGE             *
+****************************************************
+*
+*/
+
+
+/* ********************
+*NAVIGATION BAR STYLES*
+***********************
+*/
+
+
+/* search bar on the navbar */
+
+.bam-navbar-input {
+    padding: 11px 16px;
+    border-radius: 2px 0 0 2px;
+    border: 0 none;
+    outline: 0 none;
+    font-size: 15px;
+}
+
+.bam-navbar-button {
+    background-color: #F8A654;
+    border: 1px solid #F8A654;
+    border-radius: 0 2px 2px 0;
+    color: #565656;
+    padding: 10px 0;
+    height: 43px;
+    cursor: pointer;
+}
+
+
+/* 
+*******************
+******************
+QUESTION
+*/
+
+#questions {
+    text-decoration: none;
+    color: black;
+}
+
+#questions:hover {
+    color: #4EB8C5;
+}
+
+.question-container {
+    background: rgb(241, 241, 241);
+}
+
+#qtns {
+    background-color: white;
+    padding: 15px;
+}
+
+#qtns1 {
+    background-color: #17a2b8a8;
+    position: relative;
+    padding: 10px;
+}
+
+#read {
+    font-size: 18px;
+}
+
+#read-2 {
+    font-size: 15px;
+}
+
+
+/* links */
+
+#links {
+    text-decoration: none;
+}
+
+
+/* answers */
+
+.answers {
+    background: white;
+    padding: 13px;
+}
+
+
+/* user profile */
+
+#profile {
+    margin-top: 5px;
+    background: steelblue;
+    color: white;
+    padding: 8px;
+}
+
+#profile2 {
+    margin-top: 5px;
+    background: orange;
+    color: black;
+    padding: 8px;
+}
+
+
+/* statistics for individual filtered page */
+
+.stats {
+    background: steelblue;
+    color: white;
+    padding: 10px;
+}
+
+
+/* trending */
+
+.qtns2 {
+    background: white;
+    border: 1px solid orange;
+    padding: 10px;
+}
+
+
+/* question outer stat */
+
+.qtns-5 {
+    border: 1px solid orange;
+    padding: 10px;
+    background: white;
+    color: black;
+}
+
+
+/* ************
+FOOTER*********
+************** */
+
+
+/* footer */
+
+footer {
+    margin-top: 5px;
+    color: white;
+}
+
+footer a {
+    color: #bfffff;
+}
+
+footer a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    background: #27333F;
+    padding: 2em;
+}
+
+.footer-top {
+    background: #27333F;
+}
+
+.footer-middle {
+    background: #27333F;
+    padding-top: 2em;
+    color: white;
+}
+
+.list-unstyled li a {
+    text-decoration: none;
+}
+
+
+/* brand on the navbar */
+
+#brand {
+    font-family: 'Francois One', sans-serif;
+}
+
+
+/* title questions
+ */
+
+#titleq {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+
+/* questions description category and posted by */
+
+.box {
+    padding: 8px;
+    background: white;
+    text-decoration: none;
+}

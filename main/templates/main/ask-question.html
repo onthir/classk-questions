@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %} {% block content %}
+
+<div class="container">
+    <h1 class="display-4 text-center"> Ask Questions</h1>
+    <form action="" method="POST" enctype="multipart/form-data" id="question">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Category</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="values">
+              <option>Math</option>
+              <option>Geography</option>
+              <option>Chemistry</option>
+              <option>Physics</option>
+              <option>Biology</option>
+              <option>Health</option>
+              <option>Computer-Science</option>
+              <option>History</option>
+        </select>
+        </div>
+
+        <label for="title">Title</label>
+        <input class="form-control form-control-lg rounded-0" type="text" name="title"><br>
+
+        <label for="description">Description</label>
+        <textarea class="form-control form-control-lg rounded-0" type="textarea" name="description" cols="5" rows="10"></textarea><br>
+
+        <input type="submit" class="btn btn-md btn-info" value="Post">
+    </form>
+</div>
+{% endblock %}

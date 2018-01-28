@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %} {% block content %}
+<div class="container">
+    <h1 class="text-center">Classk Tutorial</h1>
+    <p>First off, welcome to the Classk website. Before diving into how you can use the website, lets discuss the main motive of the website. <strong><i> Classk</i></strong> is an online platform where you can ask questions on different topics and even answer
+        to other users questions. The main motive behind creating this website was to -never leave any questions unanswered. So you have a question in your mind or you got an assignment question, but you have no idea what the answer of the question is.
+        The first thing you do, is probably look up for answer in google. Most of the times you get the answer, but sometimes, the answer is way too complicated than the answer itself. So thats where <strong>Classk</strong> comes handy. You ask the question,
+        and other users try to answer that questions, and you can get the best suitable answer. Its like stackoverflow, but mostly directed to school taught subjects. Now that you are familiar with the motive of the website, lets get done with the tutorial.
+    </p>
+    <h3>Registration</h3>
+    <p>Registering to the website is fairly simple. Just fill in a form with your details and you are good to go. You can register from <a href="{% url 'accounts:register' %}">here.</a> Once you go the register section, you will be displayed a form which
+        looks like this: </p>
+
+    <img src="https://i.imgur.com/qbaAbCd.png" alt="Register" class="img-fluid" width="600">
+    <p>There are special instructions for different inputs. Pick a unique username(all small is preferred, although it doesnot matter). Enter the password, which cannot be something that is similar to your name or username , or all numbers, and the password
+        must be atleast 8 letters long. Then, simply fill up all the left inputs which is fairly simple. <br>
+        <i> <strong> Note: We don't display your email or phone number in your profile without your permission.</strong></i> After registration is complete, you are automatically logged in.
+    </p>
+    <h3>Ask a Question</h3>
+    <p>To ask a question, you need to register to your account. After registration, you are eligible to ask questions immediately. To ask a question, simply press the <strong class="badge badge-warning">Ask a Question</strong> button located on the index
+        page. Then you'll see something like this:</p>
+    <img src="https://i.imgur.com/6eTqAuI.png" alt="Ask" class="img-fluid" width="600">
+    <p>You need to select the category of the question first, then you need to give the title of the question, and finally the description. Try to be very clear when asking the question and try to give enough details for others to help you.
+        <br>
+        <strong><i>Note: If you use abusive language, or ask stupid questions, you'll get banned and your account will be deleted.</i></strong>
+
+    </p>
+    <h3>Editing</h3>
+    <p>Editing refers to simply editing your question or answer. On details of your question, you can see two buttons. <span class="badge badge-warning">Edit Post</span> and <span class="badge badge-danger">Delete Post</span> On clicking either of the buttons,
+        you can edit or delete your answer, and so is the case with the answers you post.
+    </p>
+    <h3>Wrap Up</h3>
+    <p>There are other many features too like your profile which you can see go to from the navbar>your-username>MyProfile. Similarly, you can reset your password too. <br>
+        <strong style="color:red">Note: You can answer a question more than once, but at your own risk, because if you try to delete any one of your answer for specific question, all of your answers to that question will be deleted. So use the edit feature rather than answer more than once. 
+        </strong> So this is basic tutorial to the website. There are a lot of features still to come, so the tutorials will be updated and you'll be notified about it.
+
+    </p>
+    <p class="lead">Enjoying Asking and Answering</p>
+</div>
+{% endblock %}

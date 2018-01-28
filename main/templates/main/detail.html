@@ -1,0 +1,69 @@
+{% extends 'main/base.html' %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <br>
+            <h1>{{ question.title }}</h1>
+            <p>{{ question.date }}</p>
+            {% if question.user == request.user %}
+            <br>
+            <a href="{% url 'main:edit' question.slug %}" class="btn btn-sm btn-warning">Edit Post</a>
+            <a href="{% url 'main:delete' question.slug %}" class="btn btn-sm btn-danger">Delete Post</a> {% else %} {% endif %}
+        </div>
+
+        <div class="col-md-2">
+            <br>
+            <a href="{% url 'main:ask-question' %}" class="btn btn-md btn-primary">Ask a Question</a>
+        </div>
+    </div>
+
+    <hr>
+    <div class="row">
+        <div class="col-md-9">
+            <p>{{ question.description }}</p>
+        </div>
+        <div class="col-md-3">
+            <div class="box">
+                <a href="{% url 'main:filter' question.category %}">
+                    <p class="badge bg-info text-white">{{ question.category }}</p>
+                </a><br> Posted By: <a href="{% url 'accounts:profile' question.user %}" id="links">{{ question.user }}</a>({{questions_by_the_user}})
+            </div>
+        </div>
+    </div>
+    <br>
+    <a href="{% url 'main:answer' question.slug %}" class="btn btn-md btn-info">Add Answer</a>
+    <h1 class="text-left">Answers: {{ cot }}</h1>
+
+    <div class="row">
+        <div class="col-md-9">
+            {% for a in answers %}
+            <div class="answers">
+                <a href="{% url 'accounts:profile' a.user %}" class="text-right" id="links">{{ a.user }}</a>
+                <p>{{ a.posted_on }}</p>
+                <p id="titleq">{{ a.answer }}</p>
+                {% if a.user == request.user %}
+                <a href="{% url 'main:update_answer' question.slug %}" class="btn btn-sm btn-warning">Edit Answer</a>
+                <a href="{% url 'main:delete_answer' question.slug %}" class="btn btn-sm btn-danger">Delete Answer</a> {% else %} {% endif %}
+                <!-- form for the satisfaction indicator -->
+
+                <!-- end of satisfaction form -->
+            </div> <br> {% endfor %}
+        </div>
+        <div class="col-md-3">
+            <div style="background-color:white; padding:10px;">
+                <h3>Similar Questions</h3>
+                <ul>
+                    {% if final %} {% for f in final %}
+                    <a href="{% url 'main:details' f.slug %}" id="links">
+                        <li>{{ f.title }}</li>
+                    </a>
+                    {% endfor %} {% else %}
+                    <p class="lead">No similar questions</p>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

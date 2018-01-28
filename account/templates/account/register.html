@@ -1,0 +1,90 @@
+ {% load crispy_forms_tags %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Classk</title>
+
+    <!-- bootstrap cdn -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+    <!-- javascript cdn bootstrap -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <!-- custom css -->
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css?family=Francois+One|Roboto+Slab" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:900" rel="stylesheet">
+</head>
+
+<body style="background-image: url('https://i.imgur.com/AYCCYjU.jpg')">
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center" id="brand">Classk</h2>
+                <h2 class="text-center text-black mb-4" id="brand">Register A Free Account</h2>
+                <div class="row">
+                    <div class="col-md-9 mx-auto">
+                        <div class="card rounded-0">
+                            <!-- card header -->
+                            <div class="card-header" id="login-card-0">
+                                <h3 class="mb-0 text-center">REGISTER AN ACCOUNT</h3>
+                            </div>
+                            <form class="form-control" action="" method="POST" enctype="multipart/form-data" id="login-card-0">
+                                {% csrf_token %} {{ form|crispy }}
+
+                                <!-- profiles -->
+                                <label for="full_name">Full Name</label><br>
+                                <input class="form-control form-control-lg rounded-0" type="text" name="full_name"><br>
+
+                                <label for="bio">Bio</label><br>
+                                <!-- textarea for the bio section -->
+                                <textarea class="form-control form-control-lg rounded-0" type="textarea" name="bio" cols="8"></textarea><br>
+
+                                <!-- location -->
+                                <label for="location">Location</label>
+                                <input class="form-control form-control-lg rounded-0" type="text" name="location">
+
+                                <label for="email">Email</label><br>
+                                <input class="form-control form-control-lg rounded-0" type="email" name="email"><br>
+
+                                <label for="birth_date">Date Of Birth(YYYY/MM/DD)</label><br>
+                                <input class="form-control form-control-lg rounded-0" type="text" name="birth_date"><br>
+
+                                <label for="phone">Phone Number</label><br>
+                                <input class="form-control form-control-lg rounded-0" type="text" name="phone"><br>
+                                <!-- show password -->
+                                <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" onclick="myFunction()">
+                                        <span class="custom-control-indicator"></span>
+                                        <span class="custom-control-description small">Show Password</span><br/>
+                                </label>
+                                <!-- register button -->
+                                <input type="submit" name="submit" id="button-0" id="submit" class="btn btn-md" value="Register">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script type="text/javascript">
+    function myFunction() {
+        var password = document.getElementById("password");
+        if (password.type === "password") {
+            password.type = "text";
+        } else {
+            password.type = "password";
+        }
+    }
+</script>
+
+</html>
