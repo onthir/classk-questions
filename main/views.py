@@ -46,6 +46,8 @@ def home(request):
         i += 1
     if len(trend_list) != 0:
         trend = Question.objects.get(id=trend_list[0])
+    else:
+        trend = None
     # getting the answers to all questions in the front page
 
     # search the questions ============
