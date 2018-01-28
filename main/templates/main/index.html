@@ -43,7 +43,7 @@
                     <p>Total Users: {{ total_users }}</p>
                 </div> <br>
                 <div class="qtns2">
-                    Most answered:
+                    Most answered: {% if trend %}
                     <a href="{% url 'main:details' trend.slug %}" style="text-decoration:none;">
                         <p>{{ trend }}</a> - <i>{{ trend.user }}</i></p>
                     <p><i>Posted On: </i>{{ trend.date}}</p>
@@ -55,6 +55,8 @@
                         <p>{{ trend.user }}</p>
                     </a>
                 </div>
+                {% else %}
+                <p>No trending question</p> {% endif %}
             </div>
         </div>
     </div>
