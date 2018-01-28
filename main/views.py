@@ -44,7 +44,8 @@ def home(request):
         new = repeatition.most_common()[i][0]
         trend_list.append(new)
         i += 1
-    trend = Question.objects.get(id=trend_list[0])
+    if len(trend_list) != 0:
+        trend = Question.objects.get(id=trend_list[0])
     # getting the answers to all questions in the front page
 
     # search the questions ============
