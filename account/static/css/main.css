@@ -254,3 +254,84 @@ footer a:hover {
     background: white;
     text-decoration: none;
 }
+
+
+/* test css */
+
+#head {
+    font-family: 'Roboto Condensed', sans-serif;
+    margin-left: 33%;
+    color: black;
+}
+
+#info {
+    background: #122f40;
+    height: 300px;
+}
+
+#info p {
+    color: white;
+}
+
+#forms {
+    background: white;
+}
+
+.form-wrapper {
+    padding: 10px;
+}
+
+.form-wrapper label {
+    padding: 10px;
+    font-family: 'Oswald', sans-serif;
+    color: black;
+}
+
+input[type=text] {
+    border: none;
+    border-bottom: 2px solid grey;
+}
+
+input[type=password] {
+    border: none;
+    border-bottom: 2px solid grey;
+}
+
+input[type=text]:focus {
+    outline: none;
+}
+
+input[type=password]:focus {
+    outline: none;
+}
+
+#show {
+    margin-left: 30%;
+}
+
+
+/* button */
+
+#submit-button {
+    margin-left: 17%;
+    border: none;
+    width: 80px;
+    height: 45px;
+    padding: 5px;
+    background: #122f40;
+    color: white;
+}
+
+#submit-button:hover {
+    border: 1px solid black;
+    transition: border 1s;
+}
+
+.form-wrapper form {
+    margin-left: 20%;
+}
+
+.form-wrapper a {
+    text-decoration: none;
+    margin-left: 30%;
+}
