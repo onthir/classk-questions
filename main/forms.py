@@ -12,6 +12,7 @@ class AnswerForm(forms.ModelForm):
         fields = ('answer',)
 
 class TopicForm(forms.ModelForm):
+    title = forms.CharField(max_length=80, required=True)
     class Meta:
         model = Topic
         fields = ('title', 'description')
