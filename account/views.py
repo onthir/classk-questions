@@ -35,6 +35,9 @@ def register(request):
 
                 messages.success(request, 'Welcome To Classk') 
                 return redirect('main:home')
+            else:
+                return render(request, 'account/register.html', {'error_message': 'Passwords donot match', 'form':form,})
+
         else:
             form = SignUpForm()
         return render(request, 'account/register.html', {'form': form})

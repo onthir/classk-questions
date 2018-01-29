@@ -21,9 +21,9 @@
                     <h4 id="titleq">{{ q.title }}</h4>
                 </a>
                 <a href="{% url 'main:filter' q.category %}">
-                    <p class="badge badge-info">{{ q.category }}</p>
+                    <p class="badge" style="background:#003346; color:white;">{{ q.category }}</p>
                 </a>
-                <p id="titleq">{{ q.date |timesince }} ago. <a href="{% url 'accounts:profile' q.user %}" id="questions" style=" padding: 2px; border:1px solid orange;">{{ q.user }}</a></p>
+                <p id="titleq">{{ q.date |timesince }} ago. <a href="{% url 'accounts:profile' q.user %}" id="questions-user-link">{{ q.user }}</a></p>
                 <div class="text-right">
                     <p>Answers: {{q.num_answers}}</p>
                 </div>

@@ -47,7 +47,7 @@ body {
 /* checkbox */
 
 #check0 {
-    background: teal;
+    background: #003143;
 }
 
 
@@ -83,10 +83,10 @@ body {
 }
 
 .bam-navbar-button {
-    background-color: #F8A654;
-    border: 1px solid #F8A654;
+    background-color: #FFC600;
+    border: 1px solid #FFC600;
     border-radius: 0 2px 2px 0;
-    color: #565656;
+    color: #003143;
     padding: 10px 0;
     height: 43px;
     cursor: pointer;
@@ -105,7 +105,7 @@ QUESTION
 }
 
 #questions:hover {
-    color: #4EB8C5;
+    color: darkslategrey;
 }
 
 .question-container {
@@ -151,7 +151,7 @@ QUESTION
 
 #profile {
     margin-top: 5px;
-    background: steelblue;
+    background: #003143;
     color: white;
     padding: 8px;
 }
@@ -258,9 +258,9 @@ footer a:hover {
 
 /* test css */
 
-#head {
+#head1 {
     font-family: 'Roboto Condensed', sans-serif;
-    margin-left: 33%;
+    margin-left: 12%;
     color: black;
 }
 
@@ -305,6 +305,15 @@ input[type=password]:focus {
     outline: none;
 }
 
+input[type=email] {
+    border: none;
+    border-bottom: 2px solid grey;
+}
+
+input[type=email]:focus {
+    outline: 0;
+}
+
 #show {
     margin-left: 30%;
 }
@@ -313,10 +322,10 @@ input[type=password]:focus {
 /* button */
 
 #submit-button {
-    margin-left: 17%;
+    margin-left: 48%;
     border: none;
     width: 80px;
-    height: 45px;
+    height: 35px;
     padding: 5px;
     background: #122f40;
     color: white;
@@ -328,10 +337,45 @@ input[type=password]:focus {
 }
 
 .form-wrapper form {
-    margin-left: 20%;
+    margin-left: 10%;
 }
 
 .form-wrapper a {
     text-decoration: none;
-    margin-left: 30%;
+    margin-left: 15%;
+}
+
+
+/* register button */
+
+#submit-button2 {
+    margin-left: 0;
+    border: none;
+    width: 200px;
+    height: 45px;
+    padding: 5px;
+    background: #122f40;
+    color: white;
+}
+
+#submit-button2:hover {
+    border: 1px solid black;
+    transition: border 1s;
+}
+
+#head {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#questions-user-link {
+    text-decoration: none;
+    border: 1px solid #122f40;
+    padding: 3px;
+    border-radius: 8px;
+}
+
+#questions-user-link:hover {
+    background-color: #122f40;
+    color: white;
+    transition: background-color 2s;
 }
