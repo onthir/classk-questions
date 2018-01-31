@@ -23,7 +23,7 @@ def home(request):
     # PAGINATION ===============================
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(results,10)
+    paginator = Paginator(results,4)
     try:
         results = paginator.page(page)
     except PageNotAnInteger:
