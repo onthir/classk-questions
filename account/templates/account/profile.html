@@ -1,74 +1,133 @@
-{% extends 'main/base.html' %} {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col-md-9" id="profile2">
-            <h3><strong>{{ details.full_name |upper }}</strong></h3>
-            <h4>{{ details.location }}</h4>
-            <p>{{ details.bio }}</p>
+<html lang="en">
 
-        </div>
-        <div class="col-dmd-3" id="profile">
-            <p>Date Joined: {{ profile.date_joined }}</p>
-            <p>Last Active: {{ profile.last_login }}</p>
-            <p> Questions asked: {{asked}}</p>
-            <p>Answers: {{answered}}</p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Classk</title>
+
+    <!-- bootstrap cdn -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> {% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Francois+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+</head>
+
+<body>
+    <!-- NAVIGATION BAR  GOES HERE -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#003143;">
+            <div class="container">
+                <a class="navbar-brand text-white" href="{% url 'main:home' %}" id="brand">ClassK</span></a>
+                <button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <!--this is the input for the search-->
+                    <div class="bam-navbar-search smallsearch col-sm-8 col-xs-11">
+                        <form action="{% url 'main:home' %}" method="get" class="row">
+                            <input class="bam-navbar-input col-md-11" type="" placeholder="Search Questions.." name="q" , value="">
+
+                        </form>
+                    </div>
+                    <!--end of input-->
+                    <ul class="nav navbar-nav ml-auto w-100 justify-content-end" id="item">
+                        <!-- categories -->
+                        <!-- dropdown -->
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+                                <strong> {{ user.username|upper }}</strong>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'accounts:profile' user.username %}">My Profile</a>
+                                <a href="{% url 'accounts:change_password' %}" class="dropdown-item">Change Password</a>
+                                <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
+                            </div>
+                        </li>
+                        {% else %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+                            Account
+                        </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="{% url 'accounts:login' %}">Login</a>
+                                <a class="dropdown-item" href="{% url 'accounts:register' %}">Create a Free Account</a>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12" style="background:#1b1e21; height:250;">
+                <h1 class="text-white text-center"><strong> {{ details.full_name |upper }}</strong></h1>
+                <h4 class="text-white text-center">{{ details.location }}</h4>
+                <h4 class="text-white text-center">{{details.bio}}</h4>
+                <!-- container start -->
+                <div class="container" style="background:white; margin-top:5%; height:400px;">
+                    <h1 class="text-center">Recent Activity</h1>
+                    <div class="row">
+                        <div class="col-md-6" style="background-color:white;">
+                            <table class="table table-hover" style="margin-top:15px;">
+                                <thead style="background:#122F3D; color:white;">
+                                    <tr>
+                                        <th>Recent Answers</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if recent_answers %} {% for r in recent_answers%}
+                                    <tr>
+
+                                        <td><a href="#" style="text-decoration:none;">{{r.question}}</a></td>
+                                    </tr>
+                                    {% endfor %} {% else %}
+                                    <tr>
+                                        <td>No answers asked</td>
+                                    </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6" style="background-color:white;">
+                            <table class="table table-hover" style="margin-top:15px;">
+                                <thead style="background:#122F3D; color:white;">
+                                    <tr>
+                                        <th>Recent Questions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if recent %} {% for r in recent %}
+                                    <tr>
+                                        <td><a href="{% url 'main:details' r.slug %}" style="text-decoration:none;">{{r.title}}</a></td>
+                                    </tr>
+                                    {% endfor %} {% else %}
+                                    <tr>
+                                        <td>No questions asked</td>
+                                    </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- container end -->
+                </div>
+            </div>
         </div>
     </div>
 
-</div>
+    <!-- footer end -->
 
-<!-- new container starts with the user statistics on the site -->
-<div class="container" style="margin-top: 7px;">
-    <div class="row">
-        <div class="col-md-12" style="background-color:white;">
-            <h1 id="brand" class="text-center">Recent Activity</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6" style="background-color:white;">
-            <table class="table table-hover">
-                <thead style="background:black; color:white;">
-                    <tr>
-                        <th>Recent Answers</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if recent_answers %} {% for r in recent_answers%}
-                    <tr>
+    <!-- scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+</body>
 
-                        <td><a href="#" style="text-decoration:none;">{{r.question}}</a></td>
-                    </tr>
-                    {% endfor %} {% else %}
-                    <tr>
-                        <td>No answers asked</td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-        </div>
-        <div class="col-md-6" style="background-color:white;">
-            <table class="table table-hover">
-                <thead style="background:black; color:white;">
-                    <tr>
-                        <th>Recent Questions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% if recent %} {% for r in recent %}
-                    <tr>
-                        <td><a href="{% url 'main:details' r.slug %}" style="text-decoration:none;">{{r.title}}</a></td>
-                    </tr>
-                    {% endfor %} {% else %}
-                    <tr>
-                        <td>No questions asked</td>
-                    </tr>
-                    {% endif %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<!-- table -->
-
-</div>
-{% endblock %}
+</html>

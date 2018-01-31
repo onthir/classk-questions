@@ -118,7 +118,7 @@ QUESTION
 }
 
 #qtns1 {
-    background-color: #17a2b8a8;
+    background-color: #003346;
     position: relative;
     padding: 10px;
 }
@@ -198,34 +198,6 @@ FOOTER*********
 
 
 /* footer */
-
-footer {
-    margin-top: 5px;
-    color: white;
-}
-
-footer a {
-    color: #bfffff;
-}
-
-footer a:hover {
-    color: white;
-}
-
-.footer-bottom {
-    background: #27333F;
-    padding: 2em;
-}
-
-.footer-top {
-    background: #27333F;
-}
-
-.footer-middle {
-    background: #27333F;
-    padding-top: 2em;
-    color: white;
-}
 
 .list-unstyled li a {
     text-decoration: none;
@@ -378,4 +350,25 @@ input[type=email]:focus {
     background-color: #122f40;
     color: white;
     transition: background-color 2s;
+}
+
+#contents-footer {
+    color: white;
+}
+
+.footer {
+    background-color: #122f40;
+}
+
+.list-contents li {
+    list-style-type: none;
+}
+
+.list-contents a {
+    text-decoration: none;
+    color: white;
+}
+
+ul {
+    padding: 0;
 }

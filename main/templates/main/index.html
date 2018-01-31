@@ -14,7 +14,7 @@
 <div class="container-fluid">
     <h1 class="text-left" id="brand"> Recently Added Questions</h1>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8 col-sm-12">
             <div id="qtns">
                 {% for q in results %}
                 <a href="{% url 'main:details' q.slug %}" id="questions">
@@ -30,7 +30,7 @@
                 <hr> {% endfor %}
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4 col-sm-12">
             <div id="qtns1">
                 <br> {% if not user.is_authenticated %}
                 <a href="{% url 'accounts:login' %}?next={% url 'main:ask-question' %}" class="btn btn-md btn-info">Ask Question</a><br><br> {% else %}

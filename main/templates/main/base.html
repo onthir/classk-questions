@@ -25,14 +25,10 @@
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <!--this is the input for the search-->
+
                     <div class="bam-navbar-search smallsearch col-sm-8 col-xs-11">
                         <form action="{% url 'main:home' %}" method="get" class="row">
-                            <input class="bam-navbar-input col-md-11" type="" placeholder="Search Questions.." name="q" , value="">
-                            <button class="bam-navbar-button col-md-1">
-                                    <svg width="15px" height="18px">
-                                        <path d="M11.618 9.897l4.224 4.212c.092.09.1.23.02.312l-1.464 1.46c-.08.08-.222.072-.314-.02L9.868 11.66M6.486 10.9c-2.42 0-4.38-1.955-4.38-4.367 0-2.413 1.96-4.37 4.38-4.37s4.38 1.957 4.38 4.37c0 2.412-1.96 4.368-4.38 4.368m0-10.834C2.904.066 0 2.96 0 6.533 0 10.105 2.904 13 6.486 13s6.487-2.895 6.487-6.467c0-3.572-2.905-6.467-6.487-6.467 "></path>
-                                    </svg>
-                                </button>
+                            <input class="bam-navbar-input col-md-11" type="search" placeholder="Search Questions.." name="q" , value="">
                         </form>
                     </div>
                     <!--end of input-->
@@ -42,8 +38,8 @@
                         {% if user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
-                            {{ user.username }}
-                        </a>
+                                <strong> {{ user.username|upper }}</strong>
+                            </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{% url 'accounts:profile' user.username %}">My Profile</a>
                                 <a href="{% url 'accounts:change_password' %}" class="dropdown-item">Change Password</a>
@@ -68,79 +64,55 @@
     </header>
     {% block content %} {% endblock %}
     <!-- footer -->
-    <footer class="mainfooter" role="contentinfo">
+    <footer class="footer">
+        <div class="container" id="contents-footer">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4><strong>Extra Features</strong></h4>
+                    <ul class="list-contents">
+                        <a href="#">
+                            <li>Website Tutorial</li>
+                        </a>
+                        <a href="#">
+                            <li>Request Topics</li>
+                        </a>
 
-        <div class="footer-middle">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3 col-sm-6">
-                        <!--Column1-->
-                        <div class="footer-pad">
-                            <h4>Address</h4>
-                            <address>
-            <ul class="list-unstyled">
-                <li>
-            Samakhusi<br>
-                    Tokha Road, Kathmandu<br>
-                    Nepal<br>
-                </li>
-                <li>
-                    Phone: 0
-                </li>
-            </ul>
-            </address>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <!--Column1-->
-                        <div class="footer-pad">
-                            <h4>Extra Features</h4>
-                            <ul class="list-unstyled">
-                                <li>
-                                    <a href="#"></a>
-                                </li>
-                                <li><a href="#">Send Feedbacks</a></li>
-                                <li><a href="{% url 'main:request_topic' %}">Request Topics</a></li>
-                                <li><a href="{% url 'main:display_request' %}">See Requests</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <!--Column1-->
-                        <div class="footer-pad">
-                            <h4>Website Information</h4>
-                            <ul class="list-unstyled">
-                                <li><a href="{% url 'main:tutorial' %}">Website Tutorial</a></li>
-                                <li><a href="#">Disclaimer</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">Terms and Conditions</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-sm-6">
-                        <!--Column1-->
-                        <div class="footer-pad">
-                            <h4>Website By Onthir</h4>
-                            <ul class="list-unstyled">
-                                <li><a href="https://bibek13.pythonanywhere.com/?">MovieHub</a></li>
-                                <li><a href="https://onthir.herokuapp.com/">Onthir Blog</a></li>
-                                <li><a href="https://onthir.github.io">Portfolio</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                        <a href="#">
+                            <li>See Requests</li>
+                        </a>
+                        <a href="#">
+                            <li>Report Abuse</li>
+                        </a>
+                    </ul>
+
+                </div>
+                <div class="col-md-4">
+                    <h4><strong>Website Policy</strong></h4>
+                    <ul class="list-contents">
+                        <a href="#">
+                            <li>Terms and Conditions</li>
+                        </a>
+                        <a href="#">
+                            <li>Privacy Policy</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4><strong>More From the Developers</strong></h4>
+                    <ul class="list-contents">
+                        <a href="#">
+                            <li>MovieHub</li>
+                        </a>
+                        <a href="#">
+                            <li>Blog</li>
+                        </a>
+                        <a href="#">
+                            <li>Portfolio</li>
+                        </a>
+                    </ul>
                 </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <!--Footer Bottom-->
-                        <p class="text-xs-center">&copy; Copyright 2017 - Classk. All rights reserved.</p>
-                    </div>
-                </div>
-            </div>
+            <span class="text-muted text-center">&copy; Copyright, Classk 2018. All Rights Reserved</span>
         </div>
     </footer>
 
