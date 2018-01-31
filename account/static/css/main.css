@@ -167,7 +167,7 @@ QUESTION
 /* statistics for individual filtered page */
 
 .stats {
-    background: steelblue;
+    background: #122f40;
     color: white;
     padding: 10px;
 }
@@ -371,4 +371,17 @@ input[type=email]:focus {
 
 ul {
     padding: 0;
+}
+
+
+/* add answer button */
+
+#submit-button-answer {
+    border: none;
+    width: 80px;
+    height: 35px;
+    padding: 10px;
+    background: #122f40;
+    color: white;
+    text-decoration: none;
 }

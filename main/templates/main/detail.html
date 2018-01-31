@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-10">
             <br>
-            <h1>{{ question.title }}</h1>
+            <h1 id="titleq">{{ question.title }}</h1>
             <p>{{ question.date }}</p>
             {% if question.user == request.user %}
             <br>
@@ -25,14 +25,16 @@
         <div class="col-md-3">
             <div class="box">
                 <a href="{% url 'main:filter' question.category %}">
-                    <p class="badge bg-info text-white">{{ question.category }}</p>
+                    <p class="badge text-white" style="background:#122f40;">{{ question.category }}</p>
                 </a><br> Posted By: <a href="{% url 'accounts:profile' question.user %}" id="links">{{ question.user }}</a>({{questions_by_the_user}})
             </div>
         </div>
     </div>
     <br>
-    <a href="{% url 'main:answer' question.slug %}" class="btn btn-md btn-info">Add Answer</a>
-    <h1 class="text-left">Answers: {{ cot }}</h1>
+    <a href="{% url 'main:answer' question.slug %}" id="submit-button-answer">Add Answer</a><br>
+
+    <br>
+    <h3 class="text-left" id="titleq">Answers: {{ cot }}</h3>
 
     <div class="row">
         <div class="col-md-9">

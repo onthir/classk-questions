@@ -1,37 +1,36 @@
-{% extends 'main/base.html' %}
-
-{% block content %}
-{% for s in questions %}
+{% extends 'main/base.html' %} {% block content %} {% for s in questions %}
 <h1 class="text-center display-4">{{ s.category }}</h1>
-<div class="row">
-{% endfor  %}
-{% if questions_all %}
-    <!-- second loop to get the contents -->
-    <div class="col-md-8">
-    <div id="qtns">
-    {% for qs in questions_all %}
-        <a href="{% url 'main:details' qs.slug %}" id="questions"><h4>{{ qs.title }}</h4></a>
-        <p class="badge badge-info">{{ qs.category }}</p>
-        <p>{{ qs.date }} <a href="{% url 'accounts:profile' qs.user %}" id="questions" style=" padding: 2px; border:1px solid orange;">{{ qs.user }}</a></p>
-        
-        <hr>
-    {% endfor %}
-    </div>
+<div class="container-fluid">
+    <div class="row">
+        {% endfor %} {% if questions_all %}
+        <!-- second loop to get the contents -->
+        <div class="col-md-8">
+            <div id="qtns">
+                {% for qs in questions_all %}
+                <a href="{% url 'main:details' qs.slug %}" id="questions">
+                    <h4 id="titleq">{{ qs.title }}</h4>
+                </a>
+                <p class="badge" style="background:#122f40; color:white;">{{ qs.category }}</p>
+                <p id="titleq">{{ qs.date }} <a href="{% url 'accounts:profile' qs.user %}" id="questions-user-link">{{ qs.user }}</a></p>
+
+                <hr> {% endfor %}
+            </div>
 
 
-{% else %}
-    <h1 class="text-center display-4">Sorry, Page doesnot exist</h1>
-    <div class="text-center">
-        <a href="{% url 'main:home' %}" class="btn btn-lg btn-danger">Return Home</a>
+            {% else %}
+            <h1 class="text-center display-4">Sorry, Page doesnot exist</h1>
+            <div class="text-center">
+                <a href="{% url 'main:home' %}" class="btn btn-lg btn-danger">Return Home</a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-md-3">
+            <div class="stats">
+                {% for t in questions %}
+                <h4>Questions in {{ t.category }}: {{ count_in_category }}</h4>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-{% endif %}
-</div>
-<div class="col-md-3">
-    <div class="stats">
-        {% for t in questions %}
-        <h4>Questions in {{ t.category }}: {{ count_in_category }}</h4>
-        {% endfor %}
-    </div>
-</div>
 </div>
 {% endblock %}
