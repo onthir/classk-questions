@@ -304,3 +304,11 @@ def out_of_context(request, slug, id, *args, **kwargs):
     else:
         return redirect("accounts:login")
             
+# delete topics
+def delete_topics(request, id):
+    if request.user.is_superuser:
+        topics = Topic.objects.get(id=id)
+        topics.delete()
+        return redirect("main:display_request")
+    else:
+        return redirect("main:display_request")

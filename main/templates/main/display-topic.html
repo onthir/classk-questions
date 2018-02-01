@@ -9,7 +9,10 @@
                 <th scope="col">User</th>
                 <th scope="col">Title</th>
                 <th scope="col">Date</th>
-                <th scopre='col'>Description</th>
+                <th scope='col'>Description</th>
+                {% if request.user.is_superuser %}
+                <th scope="col">Action</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
@@ -22,12 +25,18 @@
                 <td>{{ r.title }}</td>
                 <td>{{r.date}}</td>
                 <td>{{ r.description |slice:":255" }}</td>
+                {% if request.user.is_superuser %}
+                <td> <a href="{% url 'main:delete_topics' r.id %}" class="btn btn-danger">Delete</a></td>
+                {% endif %}
             </tr>
             {% else %}
             <td>{{r.user}}</td>
             <td>{{ r.title }}</td>
             <td>{{r.date}}</td>
             <td>{{ r.description |slice:":255" }}</td>
+            {% if request.user.is_superuser %}
+            <td> <a href="{% url 'main:delete_topics' r.id %}" class="btn btn-danger">Delete</a></td>
+            {% endif %}
             </tr>
             {% endif %} {% endfor %}
         </tbody>
