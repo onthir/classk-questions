@@ -43,7 +43,7 @@
             <div class="answers">
                 <a href="{% url 'accounts:profile' a.user %}" class="text-right" id="links">{{ a.user }}</a>
                 <p>{{ a.posted_on }}</p>
-                <p id="titleq">{{ a.answer }}</p>
+                <p id="titleq">{{ a.answer|linebreaks }}</p>
                 <!-- satisfied answer label -->
                 {% if a.satisfied %}
                 <p class="badge badge-success">Marked Satisfied</p>
