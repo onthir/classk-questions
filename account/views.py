@@ -75,15 +75,16 @@ def profile(request, user):
     details = Profile.objects.get(user_id=profile.id)
 
     # user stats asked, answered and most recent questions
+    all_questions = Question.objects.filter(user_id=profile.id)
     asked = Question.objects.filter(user_id=profile.id).count()
+    all_answers_by_the_user = Answer.objects.filter(user_id=profile.id)
     answered = Answer.objects.filter(user_id=profile.id).count()
     recent = Question.objects.filter(user_id=profile.id).order_by('-date')[0:3]
 
     # increasing the profile views
-    view_count = details.viewes
-    details.views = view_count + 1
+    view_count = details.viewes + 1
+    details.viewes = view_count
     details.save() 
-
     new_data = details.viewes
     # getting recent answers by the user
     recent_answers = Answer.objects.filter(user_id=profile.id).order_by('-posted_on')[0:3]
@@ -95,6 +96,7 @@ def profile(request, user):
         'recent':recent,
         'recent_answers': recent_answers,
         'new_data': new_data,
+        'all_questions':all_questions,
     }
     return render(request, 'account/profile.html', context)
 

@@ -71,7 +71,7 @@
                 <h4 class="text-white text-center">{{details.bio}}</h4>
                 <h5 class="text-center text-white">Profile Visits: {{ new_data }}</h5>
                 <!-- container start -->
-                <div class="container" style="background:white; margin-top:5%; height:400px;">
+                <div class="container" style="background:white; margin-top:5%;">
                     <h1 class="text-center">Recent Activity</h1>
                     <div class="row">
                         <div class="col-md-6" style="background-color:white;">
@@ -115,6 +115,17 @@
                                 </tbody>
                             </table>
                         </div>
+                        <!-- all questions -->
+                        <div class="container">
+                        <h3>All Questions</h3>
+
+                            {% for q in all_questions %}
+                                <ul>
+                                    <li style="list-style-type:none;"><a href="{% url 'main:details' q.slug %}" style="text-decoration:none;">{{ q.title }}</a></li>
+                                </ul>
+                            {% endfor %}
+                        </div>
+                        <!-- all questions end -->
                     </div>
 
                     <!-- container end -->

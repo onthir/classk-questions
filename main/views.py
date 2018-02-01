@@ -77,7 +77,6 @@ def home(request):
 @login_required(redirect_field_name='classk_redirect')
 def question(request):
     if request.user.is_authenticated:
-        print("Yes the user is authenticated")
         if request.method == 'POST':
             title = request.POST.get('title')
             description = request.POST.get('description')
@@ -111,6 +110,10 @@ def details(request, slug):
     viewed = question.viewed
     # questions by that user
     questions_by_the_user = Question.objects.filter(user=question.user).count()
+
+    # answers with mark satisfied
+    satisfied_answers = Answer.objects.filter(question_id = question.id, satisfied=True)
+    no_review_answers = Answer.objects.filter(question_id=question.id, satisfied=False)
     context = {
         'question': question,
         'answers':answers,
@@ -118,6 +121,8 @@ def details(request, slug):
         'final': final,
         'questions_by_the_user': questions_by_the_user,
         'viewed': viewed,
+        'satisfied_answers': satisfied_answers,
+        'no_review_answers': no_review_answers,
     }
     return render(request, 'main/detail.html', context)
 
@@ -130,7 +135,6 @@ def delete(request, slug):
             messages.success(request, 'Question Deleted Successfully!')  # <-
             return redirect('main:home')
         else:
-            print("Permission Denied")
             return redirect('main:home')
 
 # edit question
@@ -184,7 +188,6 @@ def update_answer(request, slug):
         if request.user == answer.user:
             if request.method == 'POST':
                 form = AnswerForm(request.POST or None, instance=answer)
-                print(new)
                 if form.is_valid():
                     form.save()
                     return HttpResponseRedirect('/details/%s' %slug)
@@ -198,10 +201,10 @@ def update_answer(request, slug):
         return redirect("main:home")
 
 # delete answer by the user
-def delete_answer(request, slug):
+def delete_answer(request, slug, id):
     if request.user.is_authenticated():
         quest = Question.objects.get(slug=slug)
-        answer = Answer.objects.filter(user=request.user, question_id=quest.id)
+        answer = Answer.objects.filter(user=request.user, question_id=quest.id, id=id)
         answer.delete()
         messages.success(request, 'Answer Deleted Successfully!')
         return HttpResponseRedirect('/details/%s' %slug)
