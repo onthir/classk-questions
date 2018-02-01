@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^login/$', views.login_user, name='login'),
     url(r'^logout/$', views.logout_user, name='logout'),
     url(r'^user/change_password/$', login_required(auth.password_change), {'post_change_redirect' : '/','template_name': 'account/change_password.html'}, name='change_password'),
+    url(r'^update-profile/(?P<user>[.\-\w]+)/$', views.update_profile, name='update_profile')
 
 
 ]

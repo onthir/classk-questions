@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
-from .forms import SignUpForm
+from .forms import SignUpForm, UpdateProfileForm
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.models import User
 from .models import *
@@ -100,3 +100,18 @@ def profile(request, user):
     }
     return render(request, 'account/profile.html', context)
 
+# update profile
+def update_profile(request, user):
+    if request.user.is_authenticated:
+        user_info = User.objects.get(username=user)
+        profile = Profile.objects.get(user_id=user_info.id) 
+        if request.method == 'POST':
+            form = UpdateProfileForm(request.POST or None, instance=profile)
+            if form.is_valid():
+                form.save()
+                return redirect("main:home")
+        else:
+            form = UpdateProfileForm(request.POST or None, instance=profile)
+        return render(request, 'account/update-account.html', {'form': form})
+    else:
+        return redirect("main:home")
