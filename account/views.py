@@ -24,8 +24,6 @@ def register(request):
                 user.profile.email = request.POST.get('email')
                 user.profile.gender = request.POST.get('gender')
                 user.profile.birth_date = request.POST.get('birth_date')
-                user.profile.phone = request.POST.get('phone')
-                print(user.profile.email)
     
                 user.profile.save()
                 raw_password = form.cleaned_data.get('password1')
