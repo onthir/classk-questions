@@ -46,6 +46,8 @@ class Answer(models.Model):
     user = models.ForeignKey(User, default=None)
     answer = models.TextField(max_length=3000, null=True)
     posted_on = models.DateField(default=datetime.datetime.now().date())
+    satisfied = models.BooleanField(default=False)
+
 
 # request topics
 class Topic(models.Model):
@@ -53,6 +55,7 @@ class Topic(models.Model):
     title = models.CharField(max_length=100, null=True)
     description = models.TextField(max_length=500, null=True)
     date = models.DateField(auto_now_add = True, null=True)
+
 
     def __str__(self):
         return self.title

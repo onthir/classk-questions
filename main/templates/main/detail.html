@@ -43,9 +43,22 @@
                 <a href="{% url 'accounts:profile' a.user %}" class="text-right" id="links">{{ a.user }}</a>
                 <p>{{ a.posted_on }}</p>
                 <p id="titleq">{{ a.answer }}</p>
-                {% if a.user == request.user %}
+                 {% if request.user == question.user %}
+                  {% if not a.satisfied %}
+                <a href="{% url 'main:satisfied' slug=question.slug id=a.id%}" class="btn btn-md btn-success">Satisfied</a> {% endif %}{% else %}
+                {% endif %}
+
+                <!-- satisfied answer label -->
+                {% if a.satisfied %}
+                <p class="badge badge-success">Satisfied</p>
+                {% else %}
+                {% endif %}
+                <!-- end of satisfied answer label -->
+                 {% if a.user == request.user %}
                 <a href="{% url 'main:update_answer' question.slug %}" class="btn btn-sm btn-warning">Edit Answer</a>
-                <a href="{% url 'main:delete_answer' question.slug %}" class="btn btn-sm btn-danger">Delete Answer</a> {% else %} {% endif %}
+                <a href="{% url 'main:delete_answer' question.slug %}" class="btn btn-sm btn-danger">Delete Answer</a>
+                {% else %}
+                {% endif %}
                 <!-- form for the satisfaction indicator -->
 
                 <!-- end of satisfaction form -->

@@ -15,6 +15,6 @@ urlpatterns = [
     url(r'^questions/filter/(?P<tag>[.\-\w]+)/$', views.filter_types, name='filter'),
     url(r'^website-tutorial/$', views.tutorial, name='tutorial'),
     url(r'^request/topic/$', views.request_topic, name='request_topic'),
-    url(r'^display/requests/$', views.display_request, name='display_request')
-
+    url(r'^display/requests/$', views.display_request, name='display_request'),
+    url(r'^details/(?P<slug>[.\-\w]+)/(?P<id>\d+)/satisfied/$', views.satisfied, name='satisfied'),
 ]

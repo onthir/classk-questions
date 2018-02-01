@@ -239,3 +239,20 @@ def display_request(request):
         
     }
     return render(request, 'main/display-topic.html', context)
+
+# answer satisfied
+def satisfied(request, slug, id, *args, **kwargs):
+    if request.user.is_authenticated():
+        question = Question.objects.get(slug=slug)
+        answer = Answer.objects.get(question_id=question.id, id=id) #and get the specific answer id or something
+        if request.user == question.user:
+            question.satisfied = True
+            answer.satisfied = True
+            question.save()
+            answer.save()
+            return HttpResponseRedirect('/details/%s' %slug)
+        else:
+            return HttpResponseRedirect('/details/%s' %slug)
+    else:
+        return redirect("accounts:login")
+        

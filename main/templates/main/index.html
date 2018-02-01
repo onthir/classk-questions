@@ -19,6 +19,9 @@
                 {% for q in results %}
                 <a href="{% url 'main:details' q.slug %}" id="questions">
                     <h4 id="titleq">{{ q.title }}</h4>
+                    {% if q.satisfied %}
+                    <p class="badge badge-success">Satisfied</p>
+                    {% endif %}
                 </a>
                 <a href="{% url 'main:filter' q.category %}">
                     <p class="badge" style="background:#003346; color:white;">{{ q.category }}</p>
