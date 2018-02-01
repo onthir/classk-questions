@@ -21,6 +21,8 @@
                     <h4 id="titleq">{{ q.title }}</h4>
                     {% if q.satisfied %}
                     <p class="badge badge-success">Satisfied</p>
+                    {% else %}
+                    <i>No results yet</i>
                     {% endif %}
                 </a>
                 <a href="{% url 'main:filter' q.category %}">

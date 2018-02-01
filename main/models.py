@@ -23,6 +23,7 @@ class Question(models.Model):
     date = models.DateTimeField(null=True, default=timezone.now())
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=50, default=None, null=True)
     satisfied = models.BooleanField(default=False)
+    viewed = models.IntegerField(default=0)
     
     def __str__(self):
         return self.title
@@ -47,6 +48,7 @@ class Answer(models.Model):
     answer = models.TextField(max_length=3000, null=True)
     posted_on = models.DateField(default=datetime.datetime.now().date())
     satisfied = models.BooleanField(default=False)
+    irrelevant = models.BooleanField(default=False)
 
 
 # request topics

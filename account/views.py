@@ -79,6 +79,12 @@ def profile(request, user):
     answered = Answer.objects.filter(user_id=profile.id).count()
     recent = Question.objects.filter(user_id=profile.id).order_by('-date')[0:3]
 
+    # increasing the profile views
+    view_count = details.viewes
+    details.views = view_count + 1
+    details.save() 
+
+    new_data = details.viewes
     # getting recent answers by the user
     recent_answers = Answer.objects.filter(user_id=profile.id).order_by('-posted_on')[0:3]
     context = {
@@ -88,6 +94,7 @@ def profile(request, user):
         'answered': answered,
         'recent':recent,
         'recent_answers': recent_answers,
+        'new_data': new_data,
     }
     return render(request, 'account/profile.html', context)
 

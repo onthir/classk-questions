@@ -66,9 +66,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12" style="background:#1b1e21; height:250;">
-                <h1 class="text-white text-center"><strong> {{ details.full_name |upper }}</strong></h1>
+                <h1 class="text-white text-center"><strong> {{ details.full_name |upper }} ({{ details.points }} points)</strong></h1>
                 <h4 class="text-white text-center">{{ details.location }}</h4>
                 <h4 class="text-white text-center">{{details.bio}}</h4>
+                <h5 class="text-center text-white">Profile Visits: {{ new_data }}</h5>
                 <!-- container start -->
                 <div class="container" style="background:white; margin-top:5%; height:400px;">
                     <h1 class="text-center">Recent Activity</h1>

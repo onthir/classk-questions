@@ -16,6 +16,8 @@ class Profile(models.Model):
     bio = models.TextField(max_length=500, default=None, null=True)
     location = models.CharField(max_length=30, default=None, null=True)
     birth_date = models.DateField(null=True, default=None)
+    points = models.IntegerField(default=0)
+    viewes = models.IntegerField(default=0)
  
 
 

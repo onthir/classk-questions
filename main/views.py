@@ -9,8 +9,7 @@ from collections import Counter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
 from django.utils import timezone
-
-
+from account.models import Profile
 # Create your views here.
 def home(request):
     questions = Question.objects.all().order_by("-date")
@@ -104,6 +103,12 @@ def details(request, slug):
     similar = Question.objects.filter(category=question.category)
     final = similar.exclude(title=question.title).order_by('-date')[:5]
 
+    # adding the views
+    initial_views = 0
+    question.viewed = int(question.viewed) + 1
+    question.save()
+    
+    viewed = question.viewed
     # questions by that user
     questions_by_the_user = Question.objects.filter(user=question.user).count()
     context = {
@@ -112,6 +117,7 @@ def details(request, slug):
         'cot': cot,
         'final': final,
         'questions_by_the_user': questions_by_the_user,
+        'viewed': viewed,
     }
     return render(request, 'main/detail.html', context)
 
@@ -245,9 +251,25 @@ def satisfied(request, slug, id, *args, **kwargs):
     if request.user.is_authenticated():
         question = Question.objects.get(slug=slug)
         answer = Answer.objects.get(question_id=question.id, id=id) #and get the specific answer id or something
+        profile = Profile.objects.get(user=answer.user)
+        profileb = Profile.objects.get(user=question.user)
+        # answer user points
+        answer_user_points = profile.points
+
+        # question user points
+        question_user_points = profileb.points
         if request.user == question.user:
             question.satisfied = True
             answer.satisfied = True
+
+            # increasing answer user points
+            profile.points = int(answer_user_points) + 10
+
+            # increasing question user points
+            profileb.points = int(question_user_points) + 1
+
+            profileb.save()
+            profile.save()
             question.save()
             answer.save()
             return HttpResponseRedirect('/details/%s' %slug)
@@ -256,3 +278,26 @@ def satisfied(request, slug, id, *args, **kwargs):
     else:
         return redirect("accounts:login")
         
+# irrelevant answer
+def out_of_context(request, slug, id, *args, **kwargs):
+    if request.user.is_authenticated():
+        question = Question.objects.get(slug=slug)
+        answer = Answer.objects.get(question_id=question.id, id=id) #and get the specific answer id or something
+        profile = Profile.objects.get(user=answer.user)
+        profileb = Profile.objects.get(user=question.user)
+        # answer user points
+        answer_user_points = profile.points
+
+        # question user points
+        question_user_points = profileb.points
+        if request.user == question.user:
+            answer.irrelevant = True
+            profile.points = int(answer_user_points) - 3
+            answer.save()
+            profile.save()
+            return HttpResponseRedirect('/details/%s' %slug)
+        else:
+            return HttpResponseRedirect('/details/%s' %slug)
+    else:
+        return redirect("accounts:login")
+            

@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^request/topic/$', views.request_topic, name='request_topic'),
     url(r'^display/requests/$', views.display_request, name='display_request'),
     url(r'^details/(?P<slug>[.\-\w]+)/(?P<id>\d+)/satisfied/$', views.satisfied, name='satisfied'),
+    url(r'^details/(?P<slug>[.\-\w]+)/(?P<id>\d+)/irrelevant/$', views.out_of_context, name='irrelevant'),
 ]

@@ -4,6 +4,7 @@
         <div class="col-md-10">
             <br>
             <h1 id="titleq">{{ question.title }}</h1>
+            <i>Viewed: {{ viewed }} times.</i>
             <p>{{ question.date }}</p>
             {% if question.user == request.user %}
             <br>
@@ -43,15 +44,24 @@
                 <a href="{% url 'accounts:profile' a.user %}" class="text-right" id="links">{{ a.user }}</a>
                 <p>{{ a.posted_on }}</p>
                 <p id="titleq">{{ a.answer }}</p>
-                 {% if request.user == question.user %}
-                  {% if not a.satisfied %}
-                <a href="{% url 'main:satisfied' slug=question.slug id=a.id%}" class="btn btn-md btn-success">Satisfied</a> {% endif %}{% else %}
-                {% endif %}
-
                 <!-- satisfied answer label -->
                 {% if a.satisfied %}
                 <p class="badge badge-success">Satisfied</p>
                 {% else %}
+
+                <!-- irrelevant -->
+                {% if a.irrelevant %}
+                <p class="badge badge-danger">Marked Irrelevant</p>
+                {% endif %}
+
+                 {% if request.user == question.user %}
+                  {% if not a.satisfied %}
+                  {% if not a.irrelevant %}
+                <a href="{% url 'main:satisfied' slug=question.slug id=a.id%}" class="btn btn-md btn-success">Satisfied</a> 
+                <a href="{% url 'main:irrelevant' slug=question.slug id=a.id%}" class="btn btn-md btn-warning">Irrelevant</a> 
+                {%endif  %}
+                {% endif %}{% else %}
+                {% endif %}
                 {% endif %}
                 <!-- end of satisfied answer label -->
                  {% if a.user == request.user %}
