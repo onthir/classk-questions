@@ -105,13 +105,16 @@ def update_profile(request, user):
     if request.user.is_authenticated:
         user_info = User.objects.get(username=user)
         profile = Profile.objects.get(user_id=user_info.id) 
-        if request.method == 'POST':
-            form = UpdateProfileForm(request.POST or None, instance=profile)
-            if form.is_valid():
-                form.save()
-                return redirect("main:home")
+        if request.user == profile.user:
+            if request.method == 'POST':
+                form = UpdateProfileForm(request.POST or None, instance=profile)
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect('/accounts/profile/%s' %user)
+            else:
+                form = UpdateProfileForm(request.POST or None, instance=profile)
+            return render(request, 'account/update-account.html', {'form': form})
         else:
-            form = UpdateProfileForm(request.POST or None, instance=profile)
-        return render(request, 'account/update-account.html', {'form': form})
+            return redirect('main:home')
     else:
         return redirect("main:home")

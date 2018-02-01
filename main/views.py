@@ -195,7 +195,7 @@ def update_answer(request, slug):
                 form = AnswerForm(request.POST or None, instance=answer)
             return render(request, 'main/edit-answer.html', {'form': form, 'quest':quest})
         else:
-            return redirect("main:home")
+            return HttpResponseRedirect('/details/%s' %slug)
 
     else:
         return redirect("main:home")
