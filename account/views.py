@@ -24,6 +24,7 @@ def register(request):
                 user.profile.email = request.POST.get('email')
                 user.profile.gender = request.POST.get('gender')
                 user.profile.birth_date = request.POST.get('birth_date')
+                user.profile.points = 10
     
                 user.profile.save()
                 raw_password = form.cleaned_data.get('password1')
@@ -34,7 +35,7 @@ def register(request):
                 messages.success(request, 'Welcome To Classk') 
                 return redirect('main:home')
             else:
-                return render(request, 'account/register.html', {'error_message': 'Passwords donot match', 'form':form,})
+                return render(request, 'account/register.html', {'error_message': ' Invalid Username or Password ', 'form':form,})
 
         else:
             form = SignUpForm()

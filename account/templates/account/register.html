@@ -33,9 +33,20 @@
         <div class="row">
             <div class="col-md-12" id="info">
                 <h1 class="text-center text-white" id="head">Register an account</h1>
+                <p class="lead text-center">Registering now gives you 10 points (essential for ranking) as a reward.</p>
                 <div class="container" id="forms">
                     <div class="form-wrapper">
                         <form action="" method="post">{% csrf_token %} {{form|crispy}}
+                                <span id='message'></span>
+                                <br>
+                                <label class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" onclick="seePassword()">
+                                        <span class="custom-control-indicator"></span>
+                                        &nbsp; &nbsp; Show Password
+                                    </label>
+                                      <br>
+
+                                        <br>
                             <!-- profiles -->
                             {% if error_message %}
                             <div class="alert alert-danger">
@@ -63,7 +74,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="birth_date">Date Of Birth(YYYY/MM/DD)</label><br>
+                                    <label for="birth_date">Date Of Birth(YYYY-MM-DD)</label><br>
                                     <input class="form-control form-control-lg rounded-0" type="text" name="birth_date"><br>
                                 </div>
                             </div>
@@ -76,6 +87,34 @@
             </div>
         </div>
     </div>
+    <script
+  src="http://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+    function seePassword() {
+        var x = document.getElementById("id_password1");
+        var y = document.getElementById("id_password2")
+        if (x.type === "password" ||  y.type === "password") {
+            x.type = "text";
+            y.type = "text";
+
+        } else {
+            x.type = "password";
+            y.type = "password";
+        }
+
+        // changing the style
+    }
+
+    $('#id_password1, #id_password2').on('keyup', function () {
+        if ($('#id_password1').val() == $('#id_password2').val()) {
+          $('#message').html('Passwords  Match.').css('color', 'green');
+        } else 
+          $('#message').html('Passwords donot Match.').css('color', 'red');
+      });
+   </script>
 </body>
 
 
