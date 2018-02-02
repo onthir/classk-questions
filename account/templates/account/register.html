@@ -37,7 +37,10 @@
                 <div class="container" id="forms">
                     <div class="form-wrapper">
                         <form action="" method="post">{% csrf_token %} {{form|crispy}}
-                                <span id='message'></span>
+                            <div style="background:rgb(214, 214, 214); color:white; padding:10px; width:25%;">
+                                <span id='message'></span><br>
+                                <span id="message2"></span>
+                            </div>
                                 <br>
                                 <label class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" onclick="seePassword()">
@@ -113,7 +116,13 @@
           $('#message').html('Passwords  Match.').css('color', 'green');
         } else 
           $('#message').html('Passwords donot Match.').css('color', 'red');
-      });
+
+    //   testing the length of the password
+        if ($('#id_password1').val().length < 8){
+            $('#message2').html('Password Too Short').css('color', 'red');
+            } else 
+            $('#message2').html('Good Length.').css('color', 'green');
+        });
    </script>
 </body>
 
