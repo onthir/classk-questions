@@ -37,10 +37,8 @@
                 <div class="container" id="forms">
                     <div class="form-wrapper">
                         <form action="" method="post">{% csrf_token %} {{form|crispy}}
-                            <div style="background:rgb(214, 214, 214); color:white; padding:10px; width:25%;">
                                 <span id='message'></span><br>
                                 <span id="message2"></span>
-                            </div>
                                 <br>
                                 <label class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" onclick="seePassword()">
