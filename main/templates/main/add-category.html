@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+    <h1>Add Categories</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form | crispy}}
+        <input type="submit" class="btn btn-md btn-danger" value="Add">
+    </form>
+    <h4>All topics</h4>
+    {% for t in topics %}
+    <p class="badge badge-info">{{ t.category }}</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

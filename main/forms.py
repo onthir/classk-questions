@@ -16,3 +16,8 @@ class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
         fields = ('title', 'description')
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('category',)

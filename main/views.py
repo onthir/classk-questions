@@ -315,3 +315,25 @@ def delete_topics(request, id):
         return redirect("main:display_request")
     else:
         return redirect("main:display_request")
+
+def add_categorys(request):
+    if request.user.is_superuser:
+        topics = Category.objects.all()
+        message = "Category already exists."
+        if request.method == 'POST':
+            form = CategoryForm(request.POST or None)
+            if form.is_valid():
+                topic = form.save(commit=False)
+                if Category.objects.filter(category=topic).exists():
+                    return message
+                else:
+                    topic.save()
+                return redirect('main:add-category')
+        else:
+            form = CategoryForm(request.POST or None)
+        return render(request, 'main/add-category.html', {'form':form, 'topics':topics, 'message':message})
+    else:
+        return redirect("main:home")
+
+
+            
