@@ -13,7 +13,7 @@ class Category(models.Model):
 
 class Question(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=70, default='Short title of your problem')
+    title = models.CharField(max_length=150, default='Short title of your problem')
     description = models.TextField(max_length=3000)
     slug = models.SlugField(max_length=140, unique=True)
     date = models.DateTimeField(null=True, default=timezone.now())
