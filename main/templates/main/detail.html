@@ -65,7 +65,7 @@
                 {% endif %}
                 <!-- end of satisfied answer label -->
                  {% if a.user == request.user %}
-                <a href="{% url 'main:update_answer' question.slug %}" class="btn btn-sm btn-warning">Edit Answer</a>
+                <a href="{% url 'main:update_answer' slug=question.slug id=a.id %}" class="btn btn-sm btn-warning">Edit Answer</a>
                 <a href="{% url 'main:delete_answer' slug=question.slug id=a.id%}" class="btn btn-sm btn-danger">Delete Answer</a>
                 {% else %}
                 {% endif %}

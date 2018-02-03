@@ -186,11 +186,11 @@ def answer(request, slug):
         return redirect("accounts:login")
 
 # update answer
-def update_answer(request, slug):
+def update_answer(request, slug, id):
     # test user login here
     if request.user.is_authenticated():
         quest = Question.objects.get(slug=slug)
-        answer = Answer.objects.get(user=request.user, question_id=quest.id)
+        answer = Answer.objects.get(user=request.user, question_id=quest.id, id=id)
         new = (answer.answer)
         if request.user == answer.user:
             if request.method == 'POST':
