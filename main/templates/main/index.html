@@ -20,7 +20,7 @@
                 <a href="{% url 'main:details' q.slug %}" id="questions">
                     <h4 id="titleq">{{ q.title }}</h4>
                     {% if q.satisfied %}
-                    <i class="fas fa-check" style="color:green;"></i>
+                    <i data-toggle="tooltip" data-placement="top" title="Undo" class="fas fa-check" style="color:green;"></i>
                     {% else %}
                     <i>No results yet</i>
                     {% endif %}

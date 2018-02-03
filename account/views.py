@@ -71,7 +71,15 @@ def logout_user(request):
     return redirect(url, args=(),kwargs={})
 
 # user profile
+
 def profile(request, user):
+    
+    global visits
+    global points
+    
+    points = []
+    visits = []
+    
     profile = User.objects.get(username=user)
     details = Profile.objects.get(user_id=profile.id)
 
@@ -89,6 +97,32 @@ def profile(request, user):
     new_data = details.viewes
     # getting recent answers by the user
     recent_answers = Answer.objects.filter(user_id=profile.id).order_by('-posted_on')[0:3]
+
+    # rank of that user
+    all_profile = Profile.objects.all()
+    for p in all_profile:
+        point = p.points
+        points.append(point)
+    ranks_in_order = sorted(points)
+    highest_to_lowest =  (sorted(ranks_in_order, key=int, reverse=True))
+
+    index_of_users_points = highest_to_lowest.index(details.points) 
+    length_of_list = len(points)
+
+    rank = (index_of_users_points/length_of_list)*100
+    rank_title = "Top " + str(rank) + "% with rank " + str(index_of_users_points + 1)
+    ranked = index_of_users_points + 1
+
+    # highest profile visits
+    all_profile_views = Profile.objects.all()
+    for a in all_profile_views:
+        v = a.viewes
+        visits.append(v)
+    visit_sorted = sorted(visits)
+    descend = sorted(visit_sorted, key=int, reverse=True)
+
+    index_of_users_visits = descend.index(details.viewes) + 1
+
     context = {
         'profile': profile,
         'details': details,
@@ -98,6 +132,10 @@ def profile(request, user):
         'recent_answers': recent_answers,
         'new_data': new_data,
         'all_questions':all_questions,
+        'rank_title':rank_title,
+        'index_of_users_points': index_of_users_points,
+        'ranked':ranked,
+        'index_of_users_visits': index_of_users_visits,
     }
     return render(request, 'account/profile.html', context)
 
