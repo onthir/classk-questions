@@ -110,7 +110,7 @@ def profile(request, user):
     length_of_list = len(points)
 
     rank = (index_of_users_points/length_of_list)*100
-    rank_title = "Top " + str(rank) + "% with rank " + str(index_of_users_points + 1)
+    rank_title = "Top " + str(rank)[:4] + "% with rank " + str(index_of_users_points + 1)
     ranked = index_of_users_points + 1
 
     # highest profile visits
