@@ -212,9 +212,14 @@ def delete_answer(request, slug, id):
     if request.user.is_authenticated():
         quest = Question.objects.get(slug=slug)
         answer = Answer.objects.filter(user=request.user, question_id=quest.id, id=id)
-        answer.delete()
-        messages.success(request, 'Answer Deleted Successfully!')
-        return HttpResponseRedirect('/details/%s' %slug)
+        if request.user == answer.user:
+            answer.delete()
+            messages.success(request, 'Answer Deleted Successfully!')
+            return HttpResponseRedirect('/details/%s' %slug)
+        else:
+            return HttpResponseRedirect('/details/%s' %slug)
+
+
 
     else:
         return redirect("accounts:login")
