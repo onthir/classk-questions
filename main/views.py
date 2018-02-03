@@ -10,6 +10,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
 from django.utils import timezone
 from account.models import Profile
+from django.core.exceptions import ObjectDoesNotExist
+
 
 # Create your views here.
 
