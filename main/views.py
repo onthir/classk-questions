@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from .models import *
 import datetime
 from .forms import *
@@ -10,6 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
 from django.utils import timezone
 from account.models import Profile
+
 # Create your views here.
 
 def home(request):
@@ -327,6 +328,7 @@ def add_categorys(request):
                 if Category.objects.filter(category=topic).exists():
                     return message
                 else:
+                    topic.category = topic.category.replace(" ", "-")
                     topic.save()
                 return redirect('main:add-category')
         else:
