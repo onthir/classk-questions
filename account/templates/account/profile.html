@@ -72,14 +72,16 @@
                 <h4 class="text-white text-center">{{details.bio}}</h4>
                 <h5 class="text-center text-white">Profile Visits: {{ new_data }}</h5>
                 <h6 class="text-center text-white">{{ rank_title }}</h6>
+                {% if index_of_users_visits == 1 %}
+                    <h6 class="badge badge-danger">#1 Highest profile visits.</h6>
+                {% endif %}
+                <!-- rank -->
+                {% if ranked == 1 %}
+                    <h6 class="badge badge-warning">Ranked #1 in the world</h6>
+                {% endif %}
+                <!-- points -->
                 {% if index_of_users_points < 100 %}
-                <h6 class="text-center badge badge-info">Classfied one of the top users</h6>
-                    {% if ranked == 1 %}
-                        <h6 class="badge badge-warning">Ranked #1 in the world</h6>
-                        {% if index_of_users_visits == 1 %}
-                            <h6 class="badge badge-danger">#1 Highest profile visits.</h6>
-                        {% endif %}
-                    {% endif %}
+                    <h6 class="text-center badge badge-info">Classfied one of the top users</h6>
                 {% endif %}
                 <!-- container start -->
             </div>

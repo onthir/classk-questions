@@ -127,8 +127,7 @@ def profile(request, user):
     all_answers = Answer.objects.filter(user_id=profile.id)
     sat_ans = all_answers.filter(satisfied=True)
     irrelevant_ans = all_answers.filter(satisfied=False)
-    print(sat_ans)
-    print(irrelevant_ans)
+    print(index_of_users_visits)
     context = {
         'profile': profile,
         'details': details,
