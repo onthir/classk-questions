@@ -190,6 +190,10 @@ def update_answer(request, slug, id):
     # test user login here
     if request.user.is_authenticated():
         quest = Question.objects.get(slug=slug)
+        try:
+            answer = Answer.objects.get(user=request.user, question_id=quest.id, id=id)
+        except DoesNotExist:
+            return redirect("main:home")
         answer = Answer.objects.get(user=request.user, question_id=quest.id, id=id)
         new = (answer.answer)
         if request.user == answer.user:
@@ -211,7 +215,10 @@ def update_answer(request, slug, id):
 def delete_answer(request, slug, id):
     if request.user.is_authenticated():
         quest = Question.objects.get(slug=slug)
-        answer = Answer.objects.get(user=request.user, question_id=quest.id, id=id)
+        try:
+            answer = Answer.objects.get(user=request.user, question_id=quest.id, id=id)
+        except DoesNotExist:
+            return redirect("main:home")
         if request.user == answer.user:
             answer.delete()
             messages.success(request, 'Answer Deleted Successfully!')
