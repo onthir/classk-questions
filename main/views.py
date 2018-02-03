@@ -319,7 +319,7 @@ def delete_topics(request, id):
 
 def add_categorys(request):
     if request.user.is_superuser:
-        topics = Category.objects.all()
+        topics = Category.objects.all().order_by("category")
         message = "Category already exists."
         if request.method == 'POST':
             form = CategoryForm(request.POST or None)
