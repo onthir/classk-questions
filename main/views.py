@@ -11,15 +11,13 @@ from django.db.models import Count
 from django.utils import timezone
 from account.models import Profile
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.db.models import Max
 
 # Create your views here.
 
 def home(request):
     questions = Question.objects.all().order_by("-date")
-    numbers = Question.objects.all().count()
-    numbers2 = Answer.objects.all().count()
-    total_users = User.objects.all().count()
+
     # counting answers on specific questions
     results = Question.objects.annotate(num_answers=Count('answer')).order_by("-date")
 
@@ -69,9 +67,6 @@ def home(request):
         return render(request, 'main/search.html',context1)
     context = {
         'questions': questions,
-        'numbers': numbers,
-        'numbers2': numbers2,
-        'total_users': total_users,
         'trend': trend,
         'results': results,        
     }
@@ -411,3 +406,26 @@ def undo_out_of_context(request, slug, id, *args, **kwargs):
             return HttpResponseRedirect('/details/%s' %slug)
     else:
         return redirect("accounts:login")
+user = []
+points = []
+def hall_of_fame(request):
+    if request.user.is_authenticated():
+        total_questions = Question.objects.all().count()
+        total_answers = Answer.objects.all().count()
+        total_users = User.objects.all().count()
+        profiles = Profile.objects.all()
+        for p in profiles:
+            highest = p.points
+            points.append(highest)
+        ranked_1 = Profile.objects.get(points=sorted(points)[0])
+        ranked_2 = Profile.objects.get(points=sorted(points)[1])
+
+        # context for the hall of fame
+        context = {
+            'total_questions':total_questions,
+            'total_answers': total_answers,
+            'total_users': total_users,
+            'ranked_1': ranked_1,
+            'ranked_2': ranked_2,
+        }
+        return render(request, 'main/hall-of-fame.html',)
