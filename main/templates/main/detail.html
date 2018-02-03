@@ -80,13 +80,13 @@
                 <ul>
                     {% if final %} {% for f in final %}
                     <a href="{% url 'main:details' f.slug %}" id="links">
-                        <li class="text-center" style="list-style-type:none;">{{ f.title }}</li>
+                        <li style="list-style-type:none;">{{ f.title }}</li>
                     </a>
                     {% endfor %} {% else %}
                     <p class="lead">No similar questions</p>
                     {% endif %}
                 </ul>
-            </div>
+            </div><br>
         </div>
     </div>
 

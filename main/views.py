@@ -117,6 +117,9 @@ def details(request, slug):
     # answers with mark satisfied
     satisfied_answers = Answer.objects.filter(question_id = question.id, satisfied=True)
     no_review_answers = Answer.objects.filter(question_id=question.id, satisfied=False)
+
+    # categories
+    cats = Category.objects.all()[:5]
     context = {
         'question': question,
         'answers':answers,
@@ -126,6 +129,7 @@ def details(request, slug):
         'viewed': viewed,
         'satisfied_answers': satisfied_answers,
         'no_review_answers': no_review_answers,
+        'cats':cats,
     }
     return render(request, 'main/detail.html', context)
 

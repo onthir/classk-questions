@@ -44,6 +44,9 @@
                                 <a class="dropdown-item" href="{% url 'accounts:profile' user.username %}">My Profile</a>
                                 <a href="{% url 'accounts:change_password' %}" class="dropdown-item">Change Password</a>
                                 <a href="{% url 'accounts:update_profile' user.username %}" class="dropdown-item">Update Profile</a>
+                                {% if request.user.is_superuser %}
+                                    <a href="{% url 'main:add-category'%}" class="dropdown-item">Add Category</a>
+                                {% endif %}
                                 <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
                             </div>
                         </li>
