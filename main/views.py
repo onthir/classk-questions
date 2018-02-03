@@ -194,7 +194,7 @@ def update_answer(request, slug, id):
         quest = Question.objects.get(slug=slug)
         try:
             answer = Answer.objects.get(user=request.user, question_id=quest.id, id=id)
-        except DoesNotExist:
+        except:
             return redirect("main:home")
         answer = Answer.objects.get(user=request.user, question_id=quest.id, id=id)
         new = (answer.answer)
@@ -219,7 +219,7 @@ def delete_answer(request, slug, id):
         quest = Question.objects.get(slug=slug)
         try:
             answer = Answer.objects.get(user=request.user, question_id=quest.id, id=id)
-        except DoesNotExist:
+        except:
             return redirect("main:home")
         if request.user == answer.user:
             answer.delete()
