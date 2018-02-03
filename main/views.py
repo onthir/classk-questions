@@ -222,9 +222,12 @@ def delete_answer(request, slug, id):
         except:
             return redirect("main:home")
         if request.user == answer.user:
-            answer.delete()
-            messages.success(request, 'Answer Deleted Successfully!')
-            return HttpResponseRedirect('/details/%s' %slug)
+            if not answer.satisfied == True:
+                answer.delete()
+                messages.success(request, 'Answer Deleted Successfully!')
+                return HttpResponseRedirect('/details/%s' %slug)
+            else:
+                return HttpResponseRedirect('/details/%s' %slug)
         else:
             return HttpResponseRedirect('/details/%s' %slug)
 
@@ -355,5 +358,56 @@ def add_categorys(request):
     else:
         return redirect("main:home")
 
+# undo the satisfied
+def undo_satisfied(request, slug, id, *args, **kwargs):
+    if request.user.is_authenticated():
+        question = Question.objects.get(slug=slug)
+        answer = Answer.objects.get(question_id=question.id, id=id) #and get the specific answer id or something
+        profile = Profile.objects.get(user=answer.user)
+        profileb = Profile.objects.get(user=question.user)
+        # answer user points
+        answer_user_points = profile.points
 
-            
+        # question user points
+        question_user_points = profileb.points
+        if request.user == question.user:
+            question.satisfied = False
+            answer.satisfied = False
+
+            # increasing answer user points
+            profile.points = int(answer_user_points) - 10
+
+            # increasing question user points
+            profileb.points = int(question_user_points) - 1
+
+            profileb.save()
+            profile.save()
+            question.save()
+            answer.save()
+            return HttpResponseRedirect('/details/%s' %slug)
+        else:
+            return HttpResponseRedirect('/details/%s' %slug)
+    else:
+        return redirect("accounts:login")
+# undo irrelevant
+def undo_out_of_context(request, slug, id, *args, **kwargs):
+    if request.user.is_authenticated():
+        question = Question.objects.get(slug=slug)
+        answer = Answer.objects.get(question_id=question.id, id=id) #and get the specific answer id or something
+        profile = Profile.objects.get(user=answer.user)
+        profileb = Profile.objects.get(user=question.user)
+        # answer user points
+        answer_user_points = profile.points
+
+        # question user points
+        question_user_points = profileb.points
+        if request.user == question.user:
+            answer.irrelevant = False
+            profile.points = int(answer_user_points) + 3
+            answer.save()
+            profile.save()
+            return HttpResponseRedirect('/details/%s' %slug)
+        else:
+            return HttpResponseRedirect('/details/%s' %slug)
+    else:
+        return redirect("accounts:login")

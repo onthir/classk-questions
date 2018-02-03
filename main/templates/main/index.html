@@ -20,7 +20,7 @@
                 <a href="{% url 'main:details' q.slug %}" id="questions">
                     <h4 id="titleq">{{ q.title }}</h4>
                     {% if q.satisfied %}
-                    <p class="badge badge-success">Satisfied</p>
+                    <i class="fas fa-check" style="color:green;"></i>
                     {% else %}
                     <i>No results yet</i>
                     {% endif %}
@@ -50,14 +50,14 @@
                 <div class="qtns2">
                     Most answered: {% if trend %}
                     <a href="{% url 'main:details' trend.slug %}" style="text-decoration:none;">
-                        <p>{{ trend }}</a> - <i>{{ trend.user }}</i></p>
+                        <p>{{ trend }}</a> - <i class="fas fa-user-circle"></i><i>{{ trend.user }}</i></p>
                     <p><i>Posted On: </i>{{ trend.date}}</p>
                 </div>
                 <br>
                 <div class="qtns2">
                     Most Questions By:
                     <a href="{% url 'accounts:profile' trend.user %}" style="text-decoration:none;">
-                        <p>{{ trend.user }}</p>
+                        <p><i class="fas fa-user-circle"></i> {{ trend.user }}</p>
                     </a>
                 </div>
                 {% else %}

@@ -8,8 +8,9 @@
             <p>{{ question.date }}</p>
             {% if question.user == request.user %}
             <br>
-            <a href="{% url 'main:edit' question.slug %}" class="btn btn-sm btn-warning">Edit Post</a>
-            <a href="{% url 'main:delete' question.slug %}" class="btn btn-sm btn-danger">Delete Post</a> {% else %} {% endif %}
+            
+            <a href="{% url 'main:edit' question.slug %}" data-toggle="tooltip" data-placement="top" title="Edit Question"><i class="fas fa-pencil-alt"></i></a>&nbsp;&nbsp;
+            <a  onclick="return confirm('Are you sure you want to delete this question?')" href="{% url 'main:delete' question.slug %}" data-toggle="tooltip" data-placement="top" title="Delete Question"><i class="fas fa-trash"></i></a> {% else %} {% endif %}
         </div>
 
         <div class="col-md-2">
@@ -27,7 +28,7 @@
             <div class="box">
                 <a href="{% url 'main:filter' question.category %}">
                     <p class="badge text-white" style="background:#122f40;">{{ question.category }}</p>
-                </a><br> Posted By: <a href="{% url 'accounts:profile' question.user %}" id="links">{{ question.user }}</a>({{questions_by_the_user}})
+                </a><br> Posted By: <i class="fas fa-user"></i> <a href="{% url 'accounts:profile' question.user %}" id="links">{{ question.user }}</a>({{questions_by_the_user}})
             </div>
         </div>
     </div>
@@ -47,26 +48,35 @@
                 <!-- satisfied answer label -->
                 {% if a.satisfied %}
                 <p class="badge badge-success">Marked Satisfied</p>
+                <a href="{% url 'main:undo_satisfied' slug=question.slug id=a.id%}"> <i class="fas fa-undo"></i></a>
+
                 {% else %}
 
                 <!-- irrelevant -->
                 {% if a.irrelevant %}
                 <p class="badge badge-danger">Marked Irrelevant</p>
+                <a href="{% url 'main:undo_irrelevant' slug=question.slug id=a.id%}" data-toggle="tooltip" data-placement="top" title="Undo"> <i class="fas fa-undo"></i></a>
                 {% endif %}
 
                  {% if request.user == question.user %}
                   {% if not a.satisfied %}
                   {% if not a.irrelevant %}
-                <a href="{% url 'main:satisfied' slug=question.slug id=a.id%}" class="btn btn-md btn-success">Satisfied</a> 
-                <a href="{% url 'main:irrelevant' slug=question.slug id=a.id%}" class="btn btn-md btn-warning">Irrelevant</a> 
+            <div style="font-size:20px;">
+                <a href="{% url 'main:satisfied' slug=question.slug id=a.id%}" data-toggle="tooltip" data-placement="top" title="Satisfied"><i class="fas fa-check"></i></a> &nbsp;&nbsp;
+                <a href="{% url 'main:irrelevant' slug=question.slug id=a.id%}" data-toggle="tooltip" data-placement="top" title="Irrelevant"><i class="fas fa-times"></i></a> 
+            </div>
                 {%endif  %}
                 {% endif %}{% else %}
                 {% endif %}
                 {% endif %}
                 <!-- end of satisfied answer label -->
                  {% if a.user == request.user %}
+
+                {% if not a.satisfied %}
                 <a href="{% url 'main:update_answer' slug=question.slug id=a.id %}" class="btn btn-sm btn-warning">Edit Answer</a>
                 <a href="{% url 'main:delete_answer' slug=question.slug id=a.id%}" class="btn btn-sm btn-danger">Delete Answer</a>
+                {% endif %}
+                
                 {% else %}
                 {% endif %}
                 <!-- form for the satisfaction indicator -->
