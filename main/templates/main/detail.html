@@ -48,14 +48,17 @@
                 <!-- satisfied answer label -->
                 {% if a.satisfied %}
                 <p class="badge badge-success">Marked Satisfied</p>
-                <a href="{% url 'main:undo_satisfied' slug=question.slug id=a.id%}"> <i class="fas fa-undo"></i></a>
-
+                {% if request.user == question.user %}
+                    <a href="{% url 'main:undo_satisfied' slug=question.slug id=a.id%}"> <i class="fas fa-undo"></i></a>
+                {% endif %}
                 {% else %}
 
                 <!-- irrelevant -->
                 {% if a.irrelevant %}
                 <p class="badge badge-danger">Marked Irrelevant</p>
-                <a href="{% url 'main:undo_irrelevant' slug=question.slug id=a.id%}" data-toggle="tooltip" data-placement="top" title="Undo"> <i class="fas fa-undo"></i></a>
+                {% if request.user == question.user %}
+                    <a href="{% url 'main:undo_irrelevant' slug=question.slug id=a.id%}" data-toggle="tooltip" data-placement="top" title="Undo"> <i class="fas fa-undo"></i></a>
+                {% endif %}                
                 {% endif %}
 
                  {% if request.user == question.user %}
