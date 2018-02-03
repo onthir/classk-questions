@@ -90,18 +90,18 @@
                             <table class="table table-hover" style="margin-top:15px;">
                                 <thead style="background:#122F3D; color:white;">
                                     <tr>
-                                        <th>Recent Answers</th>
+                                        <th>Recent Answers <a href="#">View All</a></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% if recent_answers %} {% for r in recent_answers%}
                                     <tr>
 
-                                        <td><a href="#" style="text-decoration:none;">{{r.question}}</a></td>
+                                        <td><a href="{% url 'main:details' slug=r.question.slug %}" style="text-decoration:none;">{{r.question}}</a></td>
                                     </tr>
                                     {% endfor %} {% else %}
                                     <tr>
-                                        <td>No answers asked</td>
+                                        <td>No answers posted</td>
                                     </tr>
                                     {% endif %}
                                 </tbody>
@@ -111,7 +111,7 @@
                             <table class="table table-hover" style="margin-top:15px;">
                                 <thead style="background:#122F3D; color:white;">
                                     <tr>
-                                        <th>Recent Questions</th>
+                                        <th>Recent Questions <a href="#">View All</a></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -128,15 +128,52 @@
                             </table>
                         </div>
                         <!-- all questions -->
-                        <div class="container">
-                        <h3>All Questions</h3>
+                        <div class="col-md-6" style="background-color:white;">
+                                <table class="table table-hover" style="margin-top:15px;">
+                                    <thead style="background:rgb(40, 158, 36); color:white;">
+                                        <tr>
+                                            <th>Satisfied Answers</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if sat_ans %}
+                                        {% for q in sat_ans %}
+                                        <tr>
+                                            <td><a href="{% url 'main:details' slug=q.question.slug %}" style="text-decoration:none;">{{q.question}}</a></td>
+                                        </tr>
+                                        {% endfor %} 
+                                        {% else %}
+                                        <tr>
+                                            <td>No satisfied answers</td>
+                                        </tr>
+                                        {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
 
-                            {% for q in all_questions %}
-                                <ul>
-                                    <li style="list-style-type:none;"><a href="{% url 'main:details' q.slug %}" style="text-decoration:none;">{{ q.title }}</a></li>
-                                </ul>
-                            {% endfor %}
-                        </div>
+                            <!-- irrelevant -->
+                            <div class="col-md-6" style="background-color:white;">
+                                    <table class="table table-hover" style="margin-top:15px;">
+                                        <thead style="background:rgb(192, 91, 44); color:white;">
+                                            <tr>
+                                                <th>Irrelevant Answers</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% if irrelevant_ans %}
+                                            {% for q in irrelevant_ans %}
+                                            <tr>
+                                                <td><a href="{% url 'main:details' slug=q.question.slug %}" style="text-decoration:none;">{{q.question}}</a></td>
+                                            </tr>
+                                            {% endfor %} 
+                                            {% else %}
+                                            <tr>
+                                                <td>No Irrelevant Answers</td>
+                                            </tr>
+                                            {% endif %}
+                                        </tbody>
+                                    </table>
+                                </div>
                         <!-- all questions end -->
                     </div>
 
