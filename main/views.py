@@ -11,6 +11,7 @@ from django.db.models import Count
 from django.utils import timezone
 from account.models import Profile
 # Create your views here.
+
 def home(request):
     questions = Question.objects.all().order_by("-date")
     numbers = Question.objects.all().count()
@@ -77,19 +78,20 @@ def home(request):
 @login_required(redirect_field_name='classk_redirect')
 def question(request):
     if request.user.is_authenticated:
+        lists = Category.objects.all().order_by("category")
         if request.method == 'POST':
             title = request.POST.get('title')
             description = request.POST.get('description')
-
             user = request.user
             date =  timezone.now()
             vl = request.POST.get('values')
-            questionobj = Question(user=user, title=title, description=description, date=date, category=vl)
+            category_item = Category.objects.get(category=vl)
+            questionobj = Question(user=user, title=title, description=description, date=date, category=category_item)
             questionobj.save()
             return redirect('main:home')
         else:
             form = QuestionForm()
-        return render(request, 'main/ask-question.html', {'form': form,})
+        return render(request, 'main/ask-question.html', {'form': form,'lists':lists, })
     else:
         return redirect('accounts:login')
 
@@ -213,8 +215,9 @@ def delete_answer(request, slug, id):
         return redirect("accounts:login")
 
 def filter_types(request, tag):
-    questions = Question.objects.filter(category=tag)[:1]
-    questions_all = Question.objects.filter(category=tag)
+    filters = Category.objects.get(category=tag)
+    questions = Question.objects.filter(category=filters)[:1]
+    questions_all = Question.objects.filter(category=filters)
     count_in_category = questions_all.count()
     return render(request, 'main/filtered.html', {'questions': questions, 'questions_all': questions_all, 'count_in_category': count_in_category})
 

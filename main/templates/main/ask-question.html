@@ -8,14 +8,9 @@
         <div class="form-group">
             <label for="exampleFormControlSelect1">Category</label>
             <select class="form-control" id="exampleFormControlSelect1" name="values">
-              <option>Math</option>
-              <option>Geography</option>
-              <option>Chemistry</option>
-              <option>Physics</option>
-              <option>Biology</option>
-              <option>Health</option>
-              <option>Computer-Science</option>
-              <option>History</option>
+            {% for l in lists %}
+            <option value="{{ l.category }}">{{ l.category }}</option>
+            {% endfor %}
         </select>
         </div>
 

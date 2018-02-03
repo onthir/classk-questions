@@ -5,23 +5,19 @@ import datetime
 from django.utils import timezone
 
 # Create your models here.
+class Category(models.Model):
+    category = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.category
+
 class Question(models.Model):
-    CATEGORY_CHOICES = (
-        ('Math', 'Math'),
-        ('Geography', 'Geography'),
-        ('Biology', 'Biology'),
-        ('Physics', 'Physics'),
-        ('Chemistry', 'Chemistry'),
-        ('Health', 'Health'),
-        ('Computer-Science', 'Computer-Science'),
-        ('History', 'History'),
-    )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=70, default='Short title of your problem')
     description = models.TextField(max_length=3000)
     slug = models.SlugField(max_length=140, unique=True)
     date = models.DateTimeField(null=True, default=timezone.now())
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=50, default=None, null=True)
+    category = models.ForeignKey(Category, null=True, default=None)
     satisfied = models.BooleanField(default=False)
     viewed = models.IntegerField(default=0)
     

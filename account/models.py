@@ -19,7 +19,8 @@ class Profile(models.Model):
     points = models.IntegerField(default=0)
     viewes = models.IntegerField(default=0)
  
-
+    def __str__(self):
+        return self.full_name
 
 
 @receiver(post_save, sender=User)
