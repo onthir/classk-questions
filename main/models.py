@@ -46,6 +46,9 @@ class Answer(models.Model):
     satisfied = models.BooleanField(default=False)
     irrelevant = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.question.title
+
 
 # request topics
 class Topic(models.Model):
@@ -57,3 +60,15 @@ class Topic(models.Model):
 
     def __str__(self):
         return self.title
+
+# notifications
+class Notification(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, null=True)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE, null=True)
+    any_message = models.CharField(max_length=500, null=True, default="Notification")
+    date = models.DateField(default=timezone.now())
+    read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username

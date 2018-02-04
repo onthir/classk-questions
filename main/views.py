@@ -17,7 +17,8 @@ from django.db.models import Max
 
 def home(request):
     questions = Question.objects.all().order_by("-date")
-
+    notifications = Notification.objects.filter(user=request.user, read=False)
+    notif_counts = notifications.count()
     # counting answers on specific questions
     results = Question.objects.annotate(num_answers=Count('answer')).order_by("-date")
 
@@ -68,7 +69,9 @@ def home(request):
     context = {
         'questions': questions,
         'trend': trend,
-        'results': results,        
+        'results': results,
+        'notifications':notifications,
+        'notif_counts':notif_counts,
     }
     return render(request, 'main/index.html', context)
 
@@ -92,9 +95,13 @@ def question(request):
         return render(request, 'main/ask-question.html', {'form': form,'lists':lists, })
     else:
         return redirect('accounts:login')
-
 # details for the question
 def details(request, slug):
+    # setting notifications for the page
+    notifications = Notification.objects.filter(user=request.user, read=False)
+    notif_counts = notifications.count()
+
+    # getting the details of the question   
     question = Question.objects.get(slug=slug)
     answers = Answer.objects.filter(question_id=question.id)
     cot = answers.count()
@@ -117,6 +124,13 @@ def details(request, slug):
 
     # categories
     cats = Category.objects.all()[:5]
+
+    # notifications
+    notification = Notification.objects.filter(user=request.user, read=False)
+    for n in notification:
+        if n.question.slug == slug:
+            n.read = True
+            n.save()
     context = {
         'question': question,
         'answers':answers,
@@ -127,6 +141,8 @@ def details(request, slug):
         'satisfied_answers': satisfied_answers,
         'no_review_answers': no_review_answers,
         'cats':cats,
+        'notifications': notifications,
+        'notif_counts':notif_counts,
     }
     return render(request, 'main/detail.html', context)
 
@@ -167,6 +183,7 @@ def edit_details(request, slug):
 def answer(request, slug):
     if request.user.is_authenticated():
         questions = Question.objects.get(slug=slug)
+        n = Notification.objects.all()
         if request.method == 'POST':
             form = AnswerForm(request.POST)
             if form.is_valid():
@@ -175,7 +192,12 @@ def answer(request, slug):
                 answer.question = questions
                 answer.posted_on = datetime.datetime.now().date()
                 answer.save()
+                
+                # sending the notification
+                notify = Notification(user=questions.user, question=questions, any_message='Your Question has been answered.')
+                notify.save()
                 return HttpResponseRedirect('/details/%s' %slug)
+
         else:
             form = AnswerForm(request.POST)
         return render(request, 'main/answer.html', {'form': form, 'questions': questions,})
@@ -285,6 +307,8 @@ def satisfied(request, slug, id, *args, **kwargs):
             question.satisfied = True
             answer.satisfied = True
 
+            n = Notification(user=answer.user, question=question, any_message='Your Answer Has Been Marked Satisfied')
+            n.save()
             # increasing answer user points
             profile.points = int(answer_user_points) + 10
 
@@ -318,6 +342,8 @@ def out_of_context(request, slug, id, *args, **kwargs):
             profile.points = int(answer_user_points) - 3
             answer.save()
             profile.save()
+            n = Notification(user=answer.user, question=question, any_message='Your Answer Has Been Marked Irrelevant')
+            n.save()
             return HttpResponseRedirect('/details/%s' %slug)
         else:
             return HttpResponseRedirect('/details/%s' %slug)
@@ -379,6 +405,9 @@ def undo_satisfied(request, slug, id, *args, **kwargs):
             profile.save()
             question.save()
             answer.save()
+            
+            n = Notification(user=answer.user, question=question, any_message='Your Answer Status was Reversed.')
+            n.save()
             return HttpResponseRedirect('/details/%s' %slug)
         else:
             return HttpResponseRedirect('/details/%s' %slug)
@@ -401,6 +430,8 @@ def undo_out_of_context(request, slug, id, *args, **kwargs):
             profile.points = int(answer_user_points) + 3
             answer.save()
             profile.save()
+            n = Notification(user=answer.user, question=question, any_message='Your Answer Status was Reversed.')
+            n.save()
             return HttpResponseRedirect('/details/%s' %slug)
         else:
             return HttpResponseRedirect('/details/%s' %slug)

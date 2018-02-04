@@ -1,14 +1,6 @@
 {% extends 'main/base.html' %} {% block content %}
 
-<div class="container">
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button> {{ message }}
-    </div>
-    {% endfor %}
-</div>
+
 <!-- end of the message container -->
 <!-- start of the actual questions -->
 <div class="container-fluid">
@@ -20,7 +12,7 @@
                 <a href="{% url 'main:details' q.slug %}" id="questions">
                     <h4 id="titleq">{{ q.title }}</h4>
                     {% if q.satisfied %}
-                    <i data-toggle="tooltip" data-placement="top" title="Undo" class="fas fa-check" style="color:green;"></i>
+                    <i data-toggle="tooltip" data-placement="top" title="Marked Satisfied by the owner of the question." class="fas fa-check" style="color:green;"></i>
                     {% else %}
                     <i>No results yet</i>
                     {% endif %}

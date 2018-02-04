@@ -7,13 +7,15 @@
     <title>Classk</title>
 
     <!-- bootstrap cdn -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> {% load staticfiles %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous"> {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Francois+One" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 
     <!-- font awesome -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+        crossorigin="anonymous">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 </head>
 
@@ -22,10 +24,12 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color:#003143;">
             <div class="container">
-                <a class="navbar-brand text-white" href="{% url 'main:home' %}" id="brand">ClassK</span></a>
-                <button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+                <a class="navbar-brand text-white" href="{% url 'main:home' %}" id="brand">ClassK</span>
+                </a>
+                <button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <!--this is the input for the search-->
@@ -40,8 +44,30 @@
                         <!-- categories -->
                         <!-- dropdown -->
                         {% if user.is_authenticated %}
+                        <!-- test notifications -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                style="color:white;">
+                                <strong>Notifications
+                                    <span style="color:#E0A800;">({{ notif_counts }})</span>
+                                </strong>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                {% if notifications %} {% for n in notifications %}
+                                <div class="container">
+                                        <h6 class="dropdown-header">{{n.date}}</h6>
+                                    <a class="dropdown-item" href="{% url 'main:details' slug=n.question.slug %}">&middot;{{ n.any_message }}</a>
+                                </div>
+                                {% endfor %} {% else %}
+                                <p class="text-center">All caught up!</p>
+                                {% endif %}
+                            </div>
+                        </li>
+
+                        <!-- end of test notifications -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                style="color:white;">
                                 <strong> {{ user.username|upper }}</strong>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -49,16 +75,17 @@
                                 <a href="{% url 'accounts:change_password' %}" class="dropdown-item">Change Password</a>
                                 <a href="{% url 'accounts:update_profile' user.username %}" class="dropdown-item">Update Profile</a>
                                 {% if request.user.is_superuser %}
-                                    <a href="{% url 'main:add-category'%}" class="dropdown-item">Add Category</a>
+                                <a href="{% url 'main:add-category'%}" class="dropdown-item">Add Category</a>
                                 {% endif %}
                                 <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
                             </div>
                         </li>
                         {% else %}
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
-                            Account
-                        </a>
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                style="color:white;">
+                                Account
+                            </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{% url 'accounts:login' %}">Login</a>
                                 <a class="dropdown-item" href="{% url 'accounts:register' %}">Create a Free Account</a>
@@ -76,7 +103,9 @@
         <div class="container" id="contents-footer">
             <div class="row">
                 <div class="col-md-4">
-                    <h4><strong>Extra Features</strong></h4>
+                    <h4>
+                        <strong>Extra Features</strong>
+                    </h4>
                     <ul class="list-contents">
                         <a href="{% url 'main:tutorial' %}">
                             <li>Website Tutorial</li>
@@ -95,7 +124,9 @@
 
                 </div>
                 <div class="col-md-4">
-                    <h4><strong>Website Policy</strong></h4>
+                    <h4>
+                        <strong>Website Policy</strong>
+                    </h4>
                     <ul class="list-contents">
                         <a href="#">
                             <li>Terms and Conditions</li>
@@ -106,7 +137,9 @@
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h4><strong>More From the Developers</strong></h4>
+                    <h4>
+                        <strong>More From the Developers</strong>
+                    </h4>
                     <ul class="list-contents">
                         <a href="#">
                             <li>MovieHub</li>
@@ -127,9 +160,12 @@
     <!-- footer end -->
 
     <!-- scripts -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
