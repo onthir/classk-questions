@@ -17,8 +17,12 @@ from django.db.models import Max
 
 def home(request):
     questions = Question.objects.all().order_by("-date")
-    notifications = Notification.objects.filter(user=request.user, read=False)
-    notif_counts = notifications.count()
+    if request.user.is_authenticated():
+        notifications = Notification.objects.filter(user=request.user, read=False)
+        notif_counts = notifications.count()
+    else:
+        notifications = 'None'
+        notif_counts = 0
     # counting answers on specific questions
     results = Question.objects.annotate(num_answers=Count('answer')).order_by("-date")
 
@@ -98,9 +102,12 @@ def question(request):
 # details for the question
 def details(request, slug):
     # setting notifications for the page
-    notifications = Notification.objects.filter(user=request.user, read=False)
-    notif_counts = notifications.count()
-
+    if request.user.is_authenticated():
+        notifications = Notification.objects.filter(user=request.user, read=False)
+        notif_counts = notifications.count()
+    else:
+        notifications = 'None'
+        notif_counts = 0
     # getting the details of the question   
     question = Question.objects.get(slug=slug)
     answers = Answer.objects.filter(question_id=question.id)
@@ -126,11 +133,13 @@ def details(request, slug):
     cats = Category.objects.all()[:5]
 
     # notifications
-    notification = Notification.objects.filter(user=request.user, read=False)
-    for n in notification:
-        if n.question.slug == slug:
-            n.read = True
-            n.save()
+    if request.user.is_authenticated():
+        notification = Notification.objects.filter(user=request.user, read=False)
+        for n in notification:
+            if n.question.slug == slug:
+                n.read = True
+                n.save()
+        
     context = {
         'question': question,
         'answers':answers,
