@@ -500,6 +500,16 @@ def all_satisfied(request):
     all_satisfied = results.filter(satisfied=True)
     count_of_sa = all_satisfied.count()
     title = "Satisfied Questions"
+
+    # pagination
+    page = request.GET.get('page', 1)
+    paginator = Paginator(all_satisfied,5)
+    try:
+        all_satisfied = paginator.page(page)
+    except PageNotAnInteger:
+        all_satisfied = paginator.page(1)
+    except EmptyPage:
+        all_satisfied = paginator.page(paginator.num_pages)
     context = {
         'questions': questions,
         'results':results,
@@ -514,6 +524,16 @@ def no_results(request):
     all_satisfied = results.filter(satisfied=False)
     count_of_sa = all_satisfied.count()
     title = "No Results Questions"
+
+    # pagination
+    page = request.GET.get('page', 1)
+    paginator = Paginator(all_satisfied,5)
+    try:
+        all_satisfied = paginator.page(page)
+    except PageNotAnInteger:
+        all_satisfied = paginator.page(1)
+    except EmptyPage:
+        all_satisfied = paginator.page(paginator.num_pages)
     context = {
         'results':results,
         'all_satisfied':all_satisfied,

@@ -4,10 +4,14 @@
 <!-- end of the message container -->
 <!-- start of the actual questions -->
 <div class="container-fluid">
+    <hr>
+    <a href="{% url 'main:all_satisfied' %}" id="trend_links">#All Satisfied Questions</a>&nbsp;&nbsp;
+    <a href="{% url 'main:no_results' %}" id="trend_links">#No Results Questions</a>&nbsp;&nbsp;
+    <a href="#" id="trend_links">#today</a>&nbsp;&nbsp;
+    <a href="#" id="trend_links">#trending</a>&nbsp;&nbsp;
+    <a href="#" id="trend_links">#featured</a>&nbsp;&nbsp;
+    <hr>
     <h1 class="text-left" id="brand"> Recently Added Questions</h1>
-    <a href="{% url 'main:all_satisfied' %}" id="trend_links">#All Satisfied Questions</a>&nbsp;&nbsp;&nbsp;
-    <a href="{% url 'main:no_results' %}" id="trend_links">#No Results Questions</a>
-    <a href="#" id="trend_links">#today</a>
     <div class="row">
         <div class="col-md-8 col-sm-12">
             <div id="qtns">
@@ -44,7 +48,7 @@
                 <br> {% endif %}
                 <div class="qtns2">
                     Trending Question: {% if trend %}
-                    <a href="{% url 'main:details' trend.slug %}" style="text-decoration:none;">
+                    <a href="{% url 'main:details' trend.slug %}" id="trend_links">
                         <p>{{ trend }}</a> -
                     <i class="fas fa-user-circle"></i>
                     <i>{{ trend.user }}</i>

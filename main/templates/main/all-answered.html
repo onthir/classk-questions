@@ -40,7 +40,7 @@
                 <br>
                 <br> {% endif %}
                 <div class="qtns2">
-                    Satisfied Questions: {{count_of_sa}}
+                    {{ title }}: {{count_of_sa}}
                 </div>
             </div>
         </div>
@@ -51,17 +51,17 @@
     <div class="text-center">
         <!-- pagination for the limited display of questions -->
         <nav aria-label='pagination'>
-            {% if results.has_other_pages %}
+            {% if all_satisfied.has_other_pages %}
             <ul class="pagination">
-                {% if results.has_previous %}
+                {% if all_satisfied.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ results.previous_page_number }}">&laquo;</a>
+                    <a class="page-link" href="?page={{ all_satisfied.previous_page_number }}">&laquo;</a>
                 </li>
                 {% else %}
                 <li class="page-item disabled">
                     <span class="page-link">&laquo;</span>
                 </li>
-                {% endif %} {% for i in results.paginator.page_range %} {% if results.number == i %}
+                {% endif %} {% for i in all_satisfied.paginator.page_range %} {% if all_satisfied.number == i %}
                 <li class=" page-item active">
                     <span class="page-link">{{ i }}
                         <span class="sr-only">(current)</span>
@@ -71,9 +71,9 @@
                 <li class="page-item">
                     <a class="page-link" href="?page={{ i }}">{{ i }}</a>
                 </li>
-                {% endif %} {% endfor %} {% if questions.has_next %}
+                {% endif %} {% endfor %} {% if all_satisfied.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ results.next_page_number }}">&raquo;</a>
+                    <a class="page-link" href="?page={{ all_satisfied.next_page_number }}">&raquo;</a>
                 </li>
                 {% else %}
                 <li class=" page-item disabled">
