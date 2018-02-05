@@ -34,7 +34,7 @@ def home(request):
     results = Question.objects.annotate(num_answers=Count('answer')).order_by("-date")
 
     # categories
-    categories = Category.objects.all()
+    categories = Category.objects.all().order_by('category')
     # PAGINATION ===============================
     page = request.GET.get('page', 1)
 
