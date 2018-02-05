@@ -127,7 +127,11 @@ def profile(request, user):
     all_answers = Answer.objects.filter(user_id=profile.id)
     sat_ans = all_answers.filter(satisfied=True)
     irrelevant_ans = all_answers.filter(satisfied=False)
-    print(index_of_users_visits)
+
+    # profile score
+    # points
+    points = Profile.objects.get(user=request.user)
+    score = points.points
     context = {
         'profile': profile,
         'details': details,
@@ -143,6 +147,8 @@ def profile(request, user):
         'index_of_users_visits': index_of_users_visits,
         'sat_ans':sat_ans,
         'irrelevant_ans':irrelevant_ans,
+        'points':points,
+        'score':score,
     }
     return render(request, 'account/profile.html', context)
 

@@ -20,12 +20,21 @@ def home(request):
     if request.user.is_authenticated():
         notifications = Notification.objects.filter(user=request.user, read=False)
         notif_counts = notifications.count()
+
+        # points
+        points = Profile.objects.get(user=request.user)
+        score = points.points
     else:
         notifications = 'None'
         notif_counts = 0
+
+        points = 'None'
+        score = 0
     # counting answers on specific questions
     results = Question.objects.annotate(num_answers=Count('answer')).order_by("-date")
 
+    # categories
+    categories = Category.objects.all()
     # PAGINATION ===============================
     page = request.GET.get('page', 1)
 
@@ -54,8 +63,7 @@ def home(request):
         trend = Question.objects.get(id=trend_list[0])
     else:
         trend = None
-    # getting the answers to all questions in the front page
-
+    # points of the users
     # search the questions ============
     query= request.GET.get("q")
     if query:
@@ -76,6 +84,9 @@ def home(request):
         'results': results,
         'notifications':notifications,
         'notif_counts':notif_counts,
+        'categories':categories,
+        'score':score,
+        'points':points,
     }
     return render(request, 'main/index.html', context)
 
@@ -83,6 +94,9 @@ def home(request):
 @login_required(redirect_field_name='classk_redirect')
 def question(request):
     if request.user.is_authenticated:
+        # points
+        points = Profile.objects.get(user=request.user)
+        score = points.points
         lists = Category.objects.all().order_by("category")
         if request.method == 'POST':
             title = request.POST.get('title')
@@ -96,7 +110,7 @@ def question(request):
             return redirect('main:home')
         else:
             form = QuestionForm()
-        return render(request, 'main/ask-question.html', {'form': form,'lists':lists, })
+        return render(request, 'main/ask-question.html', {'form': form,'lists':lists, 'points':points, 'score':score})
     else:
         return redirect('accounts:login')
 # details for the question
@@ -105,9 +119,16 @@ def details(request, slug):
     if request.user.is_authenticated():
         notifications = Notification.objects.filter(user=request.user, read=False)
         notif_counts = notifications.count()
+
+        # points
+        points = Profile.objects.get(user=request.user)
+        score = points.points
     else:
         notifications = 'None'
         notif_counts = 0
+
+        points = 'None'
+        score = 0
     # getting the details of the question   
     question = Question.objects.get(slug=slug)
     answers = Answer.objects.filter(question_id=question.id)
@@ -152,6 +173,8 @@ def details(request, slug):
         'cats':cats,
         'notifications': notifications,
         'notif_counts':notif_counts,
+        'points': points,
+        'score':score,
     }
     return render(request, 'main/detail.html', context)
 
@@ -469,3 +492,32 @@ def hall_of_fame(request):
             'ranked_2': ranked_2,
         }
         return render(request, 'main/hall-of-fame.html',)
+
+# all satisfied answers
+def all_satisfied(request):
+    questions = Question.objects.filter(satisfied=True)
+    results = Question.objects.annotate(num_answers=Count('answer')).order_by("-date")
+    all_satisfied = results.filter(satisfied=True)
+    count_of_sa = all_satisfied.count()
+    title = "Satisfied Questions"
+    context = {
+        'questions': questions,
+        'results':results,
+        'all_satisfied':all_satisfied,
+        'count_of_sa':count_of_sa,
+        'title':title,
+    }
+    return render(request, 'main/all-answered.html', context)
+# no results questions
+def no_results(request):
+    results = Question.objects.annotate(num_answers=Count('answer')).order_by("-date")
+    all_satisfied = results.filter(satisfied=False)
+    count_of_sa = all_satisfied.count()
+    title = "No Results Questions"
+    context = {
+        'results':results,
+        'all_satisfied':all_satisfied,
+        'count_of_sa':count_of_sa,
+        'title': title,
+    }
+    return render(request, 'main/all-answered.html', context)

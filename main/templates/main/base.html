@@ -68,7 +68,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                 style="color:white;">
-                                <strong> {{ user.username|upper }}</strong>
+                                <strong> {{ user.username|upper }}( {{ score }} )</strong>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{% url 'accounts:profile' user.username %}">My Profile</a>

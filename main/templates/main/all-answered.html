@@ -4,14 +4,11 @@
 <!-- end of the message container -->
 <!-- start of the actual questions -->
 <div class="container-fluid">
-    <h1 class="text-left" id="brand"> Recently Added Questions</h1>
-    <a href="{% url 'main:all_satisfied' %}" id="trend_links">#All Satisfied Questions</a>&nbsp;&nbsp;&nbsp;
-    <a href="{% url 'main:no_results' %}" id="trend_links">#No Results Questions</a>
-    <a href="#" id="trend_links">#today</a>
+    <h1 class="text-left" id="brand"> {{ title }}</h1>
     <div class="row">
         <div class="col-md-8 col-sm-12">
             <div id="qtns">
-                {% for q in results %}
+                {% for q in all_satisfied %}
                 <a href="{% url 'main:details' q.slug %}" id="questions">
                     <h4 id="titleq">{{ q.title }}</h4>
                     {% if q.satisfied %}
@@ -43,30 +40,8 @@
                 <br>
                 <br> {% endif %}
                 <div class="qtns2">
-                    Trending Question: {% if trend %}
-                    <a href="{% url 'main:details' trend.slug %}" style="text-decoration:none;">
-                        <p>{{ trend }}</a> -
-                    <i class="fas fa-user-circle"></i>
-                    <i>{{ trend.user }}</i>
-                    </p>
-                    <p>
-                        <i>Posted On: </i>{{ trend.date}}</p>
+                    Satisfied Questions: {{count_of_sa}}
                 </div>
-                <br>
-                <p class="text-center">
-                    <i class="fas fa-trophy" style="color:#f1b838;"> </i>&nbsp;
-                    <a href="#" id="links" style="color:white;">Hall Of Fame</a>&nbsp;
-                    <i class="fas fa-trophy" style="color:#f1b838;"> </i>
-
-                </p>
-                {% else %}
-                <p>No trending question</p> {% endif %}
-                <!-- all categories -->
-                <h4 class="text-white">All Categories</h4>
-                {% for c in categories %}
-                   <a href="{% url 'main:filter' tag=c.category %}"> <p class="badge badge-info">{{ c.category }}</p></a>
-                {% endfor %}
-                <!-- end all categories -->
             </div>
         </div>
     </div>

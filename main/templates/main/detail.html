@@ -4,22 +4,21 @@
         <div class="col-md-10">
             <br>
             <h1 id="titleq">{{ question.title }}</h1>
+            {% if question.user == request.user %}
+            <a href="{% url 'main:edit' question.slug %}" data-toggle="tooltip" data-placement="top" title="Edit Question">
+                <i class="fas fa-pencil-alt"></i>
+            </a>&nbsp;&nbsp;
+            <a onclick="return confirm('Are you sure you want to delete this question?')" href="{% url 'main:delete' question.slug %}"
+                data-toggle="tooltip" data-placement="top" title="Delete Question">
+                <i class="fas fa-trash"></i>
+            </a>
+            {% else %} {% endif %}
+            <br>
             <i>Viewed: {{ viewed }} times.</i>
             <p>{{ question.date }}</p>
-            {% if question.user == request.user %}
-            <br>
-            
-            <a href="{% url 'main:edit' question.slug %}" data-toggle="tooltip" data-placement="top" title="Edit Question"><i class="fas fa-pencil-alt"></i></a>&nbsp;&nbsp;
-            <a  onclick="return confirm('Are you sure you want to delete this question?')" href="{% url 'main:delete' question.slug %}" data-toggle="tooltip" data-placement="top" title="Delete Question"><i class="fas fa-trash"></i></a> {% else %} {% endif %}
-        </div>
 
-        <div class="col-md-2">
-            <br>
-            <a href="{% url 'main:ask-question' %}" class="btn btn-md btn-primary">Ask a Question</a>
         </div>
     </div>
-
-    <hr>
     <div class="row">
         <div class="col-md-9">
             <p>{{ question.description }}</p>
@@ -28,12 +27,18 @@
             <div class="box">
                 <a href="{% url 'main:filter' question.category %}">
                     <p class="badge text-white" style="background:#122f40;">{{ question.category }}</p>
-                </a><br> Posted By: <i class="fas fa-user"></i> <a href="{% url 'accounts:profile' question.user %}" id="links">{{ question.user }}</a>({{questions_by_the_user}})
+                </a>
+                <br> Posted By:
+                <i class="fas fa-user"></i>
+                <a href="{% url 'accounts:profile' question.user %}" id="links">{{ question.user|upper }}</a>({{questions_by_the_user}})
             </div>
         </div>
     </div>
+    <hr>
+
     <br>
-    <a href="{% url 'main:answer' question.slug %}" id="submit-button-answer">Add Answer</a><br>
+    <a href="{% url 'main:answer' question.slug %}" id="submit-button-answer">Add Answer</a>
+    <br>
 
     <br>
     <h3 class="text-left" id="titleq">Answers: {{ cot }}</h3>
@@ -49,43 +54,38 @@
                 {% if a.satisfied %}
                 <p class="badge badge-success">Marked Satisfied</p>
                 {% if request.user == question.user %}
-                    <a href="{% url 'main:undo_satisfied' slug=question.slug id=a.id%}"> <i class="fas fa-undo"></i></a>
-                {% endif %}
-                {% else %}
+                <a href="{% url 'main:undo_satisfied' slug=question.slug id=a.id%}">
+                    <i class="fas fa-undo"></i>
+                </a>
+                {% endif %} {% else %}
 
                 <!-- irrelevant -->
                 {% if a.irrelevant %}
                 <p class="badge badge-danger">Marked Irrelevant</p>
                 {% if request.user == question.user %}
-                    <a href="{% url 'main:undo_irrelevant' slug=question.slug id=a.id%}" data-toggle="tooltip" data-placement="top" title="Undo"> <i class="fas fa-undo"></i></a>
-                {% endif %}                
-                {% endif %}
-
-                 {% if request.user == question.user %}
-                  {% if not a.satisfied %}
-                  {% if not a.irrelevant %}
-            <div style="font-size:20px;">
-                <a href="{% url 'main:satisfied' slug=question.slug id=a.id%}" data-toggle="tooltip" data-placement="top" title="Satisfied"><i class="fas fa-check"></i></a> &nbsp;&nbsp;
-                <a href="{% url 'main:irrelevant' slug=question.slug id=a.id%}" data-toggle="tooltip" data-placement="top" title="Irrelevant"><i class="fas fa-times"></i></a> 
-            </div>
-                {%endif  %}
-                {% endif %}{% else %}
-                {% endif %}
-                {% endif %}
+                <a href="{% url 'main:undo_irrelevant' slug=question.slug id=a.id%}" data-toggle="tooltip" data-placement="top" title="Undo">
+                    <i class="fas fa-undo"></i>
+                </a>
+                {% endif %} {% endif %} {% if request.user == question.user %} {% if not a.satisfied %} {% if not a.irrelevant %}
+                <div style="font-size:20px;">
+                    <a href="{% url 'main:satisfied' slug=question.slug id=a.id%}" data-toggle="tooltip" data-placement="top" title="Satisfied">
+                        <i class="fas fa-check"></i>
+                    </a> &nbsp;&nbsp;
+                    <a href="{% url 'main:irrelevant' slug=question.slug id=a.id%}" data-toggle="tooltip" data-placement="top" title="Irrelevant">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </div>
+                {%endif %} {% endif %}{% else %} {% endif %} {% endif %}
                 <!-- end of satisfied answer label -->
-                 {% if a.user == request.user %}
-
-                {% if not a.satisfied %}
+                {% if a.user == request.user %} {% if not a.satisfied %}
                 <a href="{% url 'main:update_answer' slug=question.slug id=a.id %}" class="btn btn-sm btn-warning">Edit Answer</a>
                 <a href="{% url 'main:delete_answer' slug=question.slug id=a.id%}" class="btn btn-sm btn-danger">Delete Answer</a>
-                {% endif %}
-                
-                {% else %}
-                {% endif %}
+                {% endif %} {% else %} {% endif %}
                 <!-- form for the satisfaction indicator -->
 
                 <!-- end of satisfaction form -->
-            </div> <br> {% endfor %}
+            </div>
+            <br> {% endfor %}
         </div>
         <div class="col-md-3">
             <div style="background-color:white; padding:10px;">
@@ -99,7 +99,10 @@
                     <p class="lead">No similar questions</p>
                     {% endif %}
                 </ul>
-            </div><br>
+                <br>
+                <a href="{% url 'main:ask-question' %}" class="btn btn-md btn-primary">Ask a Question</a>
+            </div>
+            <br>
         </div>
     </div>
 

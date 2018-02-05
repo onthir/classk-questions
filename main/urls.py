@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^add-category/$', views.add_categorys, name='add-category'),
     url(r'^details/(?P<slug>[.\-\w]+)/(?P<id>\d+)/undo-satisfied/$', views.undo_satisfied, name='undo_satisfied'),
     url(r'^details/(?P<slug>[.\-\w]+)/(?P<id>\d+)/undo-irrelevant/$', views.undo_out_of_context, name='undo_irrelevant'),
-
+    url(r'^satisfied/answers/all/$', views.all_satisfied, name='all_satisfied'),
+    url(r'no-results/all/$', views.no_results, name='no_results')
     
 ]
