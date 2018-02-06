@@ -6,6 +6,22 @@
 <div class="container-fluid">
     <h1 class="text-left" id="brand"> {{ title }}</h1>
     <div class="row">
+        <!-- start of a column -->
+        <div class="col-md-4 col-sm-12">
+            <div id="qtns1">
+                {% if not user.is_authenticated %}
+                <a href="{% url 'accounts:login' %}?next={% url 'main:ask-question' %}" class="btn btn-md btn-info">Ask Question</a>
+                <br>
+                <br> {% else %}
+                <a href="{% url 'main:ask-question' %}" class="btn btn-md btn-warning">Ask Quesiton</a>
+                <br>
+                <br> {% endif %}
+                <div class="qtns2">
+                    {{ title }}: {{count_of_sa}}
+                </div>
+            </div>
+        </div>
+        <!-- end of column -->
         <div class="col-md-8 col-sm-12">
             <div id="qtns">
                 {% for q in all_satisfied %}
@@ -30,20 +46,7 @@
                 <hr> {% endfor %}
             </div>
         </div>
-        <div class="col-md-4 col-sm-12">
-            <div id="qtns1">
-                {% if not user.is_authenticated %}
-                <a href="{% url 'accounts:login' %}?next={% url 'main:ask-question' %}" class="btn btn-md btn-info">Ask Question</a>
-                <br>
-                <br> {% else %}
-                <a href="{% url 'main:ask-question' %}" class="btn btn-md btn-warning">Ask Quesiton</a>
-                <br>
-                <br> {% endif %}
-                <div class="qtns2">
-                    {{ title }}: {{count_of_sa}}
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
 <br>

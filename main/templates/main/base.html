@@ -59,6 +59,7 @@
                                     <a class="dropdown-item" href="{% url 'main:details' slug=n.question.slug %}">&middot;{{ n.any_message }}</a>
                                 </div>
                                 {% endfor %} {% else %}
+                                <img class="img-fluid text-center" src="https://www.gstatic.com/acx/components/notification/jingles_animated.gif" alt="all caught up">
                                 <p class="text-center">All caught up!</p>
                                 {% endif %}
                             </div>
