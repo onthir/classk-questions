@@ -6,3 +6,5 @@ whitenoise==3.2.2
 django-ckeditor
 django-crispy-forms
 django-widget-tweaks
+django-jet
+google-api-python-client==1.4.1
