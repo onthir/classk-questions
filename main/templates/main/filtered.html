@@ -29,6 +29,7 @@
                 <p id="titleq">{{ qs.date }}
                     <a href="{% url 'accounts:profile' qs.user %}" id="questions-user-link">{{ qs.user }}</a>
                 </p>
+                <i>Viewed: {{ qs.viewed }} times.</i>
 
                 <hr> {% endfor %}
             </div>

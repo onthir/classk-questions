@@ -7,27 +7,27 @@
     <hr>
     <a href="{% url 'main:all_satisfied' %}" id="trend_links">#All Satisfied Questions</a>&nbsp;&nbsp;
     <a href="{% url 'main:no_results' %}" id="trend_links">#No Results Questions</a>&nbsp;&nbsp;
-    <a href="#" id="trend_links">#today</a>&nbsp;&nbsp;
-    <a href="#" id="trend_links">#trending</a>&nbsp;&nbsp;
-    <a href="#" id="trend_links">#featured</a>&nbsp;&nbsp;
     <hr>
     <div class="row">
         <!-- trending column -->
-        <div class="col-md-4 col-sm-12">
+
+        <div class="col-md-3 col-sm-12">
+      
+            {% if not user.is_authenticated %}
+            <div class="text-center">
+                <a href="{% url 'accounts:login' %}?next={% url 'main:ask-question' %}" class="btn btn-lg btn-info">Ask Question</a>
+            </div>
+            <br>
+            {% else %}
+            <div class="text-center">
+                <a href="{% url 'main:ask-question' %}" class="btn btn-lg btn-warning">Ask Quesiton</a>
+            </div>
+            <br>
+             {% endif %}
             <div id="qtns1">
-                {% if not user.is_authenticated %}
-                <div class="text-center">
-                    <a href="{% url 'accounts:login' %}?next={% url 'main:ask-question' %}" class="btn btn-lg btn-info">Ask Question</a>
-                </div>
-                <br>
-                <br> {% else %}
-                <div class="text-center">
-                    <a href="{% url 'main:ask-question' %}" class="btn btn-lg btn-warning">Ask Quesiton</a>
-                </div>
-                <br>
-                <br> {% endif %}
+
                 <div class="qtns2">
-                    Trending Question: {% if trend %}
+                    Trending Question: 
                     <a href="{% url 'main:details' trend.slug %}" id="trend_links">
                         <p>{{ trend }}</a> -
                     <i class="fas fa-user-circle"></i>
@@ -43,8 +43,6 @@
                     <i class="fas fa-trophy" style="color:#f1b838;"> </i>
 
                 </p>
-                {% else %}
-                <p>No trending question</p> {% endif %}
                 <!-- all categories -->
                 <h4 class="text-white">All Categories</h4>
                 {% for c in categories %}
@@ -54,9 +52,22 @@
                 {% endfor %}
                 <!-- end all categories -->
             </div>
+            <br>
+            <div class="container" style="background:#003346; color:white; padding:8px;">
+                    <!-- test -->
+                    <h4>Signup For Newsletter</h4>
+                    <!-- test form on the same page to test the post -->
+                        <form action="" method='POST'>{% csrf_token %}
+                        <label for="name">Name</label>  <br> <input type="text" class="form-control" name="name" id=""><br>
+                        <label for="email">Email</label><br> <input type="email" class="form-control" name="email"><br>
+                        <input type="hidden" value="{% csrf_token %}">
+                        <input type="submit" value="Submit" class="btn btn-md btn-info">
+                        </form>
+                    </div>
+                    <!-- test --> <br>
         </div>
         <!-- end of trending column -->
-        <div class="col-md-8 col-sm-12">
+        <div class="col-md-9 col-sm-12">
             <h1 class="text-left" id="brand"> Recently Added Questions</h1>
             <div id="qtns">
                 {% for q in results %}
@@ -76,6 +87,7 @@
                     <a href="{% url 'accounts:profile' q.user %}" id="questions-user-link">{{ q.user }}</a>
                 </p>
                 <div class="text-right">
+                        <i>Viewed: {{ q.viewed }} times.</i>
                     <p>Answers: {{q.num_answers}}</p>
                 </div>
                 <hr> {% endfor %}

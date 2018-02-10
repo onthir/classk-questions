@@ -1,4 +1,4 @@
-{% extends 'main/base.html' %} {% block content %}
+{% extends 'main/base.html' %} {% load crispy_forms_tags %} {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-md-10">
@@ -36,9 +36,7 @@
     </div>
     <hr>
 
-    <br>
-    <a href="{% url 'main:answer' question.slug %}" id="submit-button-answer">Add Answer</a>
-    <br>
+        <br>
 
     <br>
     <h3 class="text-left" id="titleq">Answers: {{ cot }}</h3>
@@ -86,6 +84,17 @@
                 <!-- end of satisfaction form -->
             </div>
             <br> {% endfor %}
+            <h3>Post Your Own Answer</h3>
+            {% if request.user.is_authenticated %}
+            <form action="" method="post">
+                {% csrf_token %} {{form |crispy}}
+                <input type="submit" value="Add Answer" class="btn btn-md btn-warning">
+            </form>
+            {% else %}
+                <a href="{% url 'accounts:login' %}?next=/details/{{question.slug}}" class="btn btn-md btn-danger">Add Answer</a>
+                <br>
+                <br>
+            {% endif %}
         </div>
         <div class="col-md-3">
             <div style="background-color:white; padding:10px;">
@@ -105,6 +114,6 @@
             <br>
         </div>
     </div>
-
+  
 </div>
 {% endblock %}

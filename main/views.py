@@ -12,9 +12,9 @@ from django.utils import timezone
 from account.models import Profile
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Max
-
+from datetime import date
 # Create your views here.
-
+trend_counter= []
 def home(request):
     questions = Question.objects.all().order_by("-date")
     if request.user.is_authenticated():
@@ -46,23 +46,14 @@ def home(request):
     except EmptyPage:
         results = paginator.page(paginator.num_pages)
    
-    # end of counting
-    empty = []
-    for a in  Answer.objects.all():
-        idd = a.id
-        question_id = (a.question_id)
-        empty.append(str(question_id))
-    repeatition = Counter(empty)
-    i = 0
-    trend_list = []
-    for x in range(len(repeatition)):
-        new = repeatition.most_common()[i][0]
-        trend_list.append(new)
-        i += 1
-    if len(trend_list) != 0:
-        trend = Question.objects.get(id=trend_list[0])
-    else:
-        trend = None
+    # trending question
+    trending_question = Question.objects.all()
+    for t in trending_question:
+        po = t.viewed
+        trend_counter.append(po)
+    new_trend = sorted(trend_counter)
+    trend_index = new_trend[len(new_trend)-1]
+    trend = Question.objects.get(viewed=trend_index)
     # points of the users
     # search the questions ============
     query= request.GET.get("q")
@@ -78,6 +69,12 @@ def home(request):
             'resulted': resulted,
         }
         return render(request, 'main/search.html',context1)
+    # newsletter example
+    if request.method == 'POST':
+        title = request.POST.get('name')
+        email = request.POST.get('email')
+        print(title)
+        print(email)
     context = {
         'questions': questions,
         'trend': trend,
@@ -153,6 +150,17 @@ def details(request, slug):
     # categories
     cats = Category.objects.all()[:5]
 
+    # if answer form is submitted
+    form = AnswerForm(request.POST or None)
+    if request.method =='POST':
+        form = AnswerForm(request.POST or None)
+        if form.is_valid():
+            details = form.save(commit=False)
+            details.question_id = question.id
+            details.user = request.user
+            details.save()
+            return HttpResponseRedirect('/details/%s' %slug)
+
     # notifications
     if request.user.is_authenticated():
         notification = Notification.objects.filter(user=request.user, read=False)
@@ -175,6 +183,7 @@ def details(request, slug):
         'notif_counts':notif_counts,
         'points': points,
         'score':score,
+        'form': form
     }
     return render(request, 'main/detail.html', context)
 
@@ -210,31 +219,6 @@ def edit_details(request, slug):
     else:
         return redirect("main:home")
 
-
-# answer to the question
-def answer(request, slug):
-    if request.user.is_authenticated():
-        questions = Question.objects.get(slug=slug)
-        n = Notification.objects.all()
-        if request.method == 'POST':
-            form = AnswerForm(request.POST)
-            if form.is_valid():
-                answer = form.save(commit=False)
-                answer.user = request.user
-                answer.question = questions
-                answer.posted_on = datetime.datetime.now().date()
-                answer.save()
-                
-                # sending the notification
-                notify = Notification(user=questions.user, question=questions, any_message='Your Question has been answered.')
-                notify.save()
-                return HttpResponseRedirect('/details/%s' %slug)
-
-        else:
-            form = AnswerForm(request.POST)
-        return render(request, 'main/answer.html', {'form': form, 'questions': questions,})
-    else:
-        return redirect("accounts:login")
 
 # update answer
 def update_answer(request, slug, id):
@@ -503,7 +487,7 @@ def all_satisfied(request):
 
     # pagination
     page = request.GET.get('page', 1)
-    paginator = Paginator(all_satisfied,5)
+    paginator = Paginator(all_satisfied,4)
     try:
         all_satisfied = paginator.page(page)
     except PageNotAnInteger:
