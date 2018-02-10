@@ -159,7 +159,7 @@ def details(request, slug):
             details.question_id = question.id
             details.user = request.user
             details.save()
-            n = Notification(user=answer.user, question=question, any_message='Your Question has been answered.')
+            n = Notification(user=request.user, question=question, any_message='Your Question has been answered.')
             n.save()
             return HttpResponseRedirect('/details/%s' %slug)
 
