@@ -13,6 +13,8 @@ from account.models import Profile
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Max
 from datetime import date
+from django.db.models import Q
+
 # Create your views here.
 trend_counter= []
 def home(request):
@@ -59,7 +61,7 @@ def home(request):
     query= request.GET.get("q")
     if query:
         short_list = Question.objects.all()
-        questions = short_list.filter(title__icontains=query)
+        questions = short_list.filter(Q(title__icontains=query) | Q(category__category__icontains=query) | Q(user__username__icontains=query))
         resulted = questions.annotate(num_answers=Count('answer'))
         counted = questions.count()
         context1 = {
