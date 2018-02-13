@@ -53,18 +53,6 @@
                 <!-- end all categories -->
             </div>
             <br>
-            <div class="container" style="background:#003346; color:white; padding:8px;">
-                    <!-- test -->
-                    <h4>Signup For Newsletter</h4>
-                    <!-- test form on the same page to test the post -->
-                        <form action="" method='POST'>{% csrf_token %}
-                        <label for="name">Name</label>  <br> <input type="text" class="form-control" name="name" id=""><br>
-                        <label for="email">Email</label><br> <input type="email" class="form-control" name="email"><br>
-                        <input type="hidden" value="{% csrf_token %}">
-                        <input type="submit" value="Submit" class="btn btn-md btn-info">
-                        </form>
-                    </div>
-                    <!-- test --> <br>
         </div>
         <!-- end of trending column -->
         <div class="col-md-9 col-sm-12">

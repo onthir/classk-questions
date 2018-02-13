@@ -1,0 +1,11 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>All questions by {{ details.user.username }}</h1>
+    {% for a in all_questions %}
+        <a href="{% url 'main:details' a.slug %}">{{ a.title }}</a><br>
+    {% endfor %}
+</div>
+
+{% endblock %}

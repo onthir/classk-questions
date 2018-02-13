@@ -175,3 +175,29 @@ def update_profile(request, user):
             return redirect('main:home')
     else:
         return redirect("main:home")
+
+# all questions
+def all(request, user):
+
+    profile = User.objects.get(username=user)
+    details = Profile.objects.get(user_id=profile.id)
+    # all questions by the user
+    all_questions = Question.objects.filter(user_id=profile.id)
+    context = {
+        'all_questions':all_questions,
+        'details':details
+    }
+    return render(request, 'account/all_questions.html', context)
+# all answers
+def all2(request, user):
+
+    profile = User.objects.get(username=user)
+    details = Profile.objects.get(user_id=profile.id)
+    # all answers by the user
+    all_answers = Answer.objects.filter(user_id=profile.id)
+
+    context = {
+        'all_answers':all_answers,
+        'details':details
+    }
+    return render(request, 'account/all_answers.html', context)

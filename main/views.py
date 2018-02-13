@@ -69,12 +69,6 @@ def home(request):
             'resulted': resulted,
         }
         return render(request, 'main/search.html',context1)
-    # newsletter example
-    if request.method == 'POST':
-        title = request.POST.get('name')
-        email = request.POST.get('email')
-        print(title)
-        print(email)
     context = {
         'questions': questions,
         'trend': trend,
