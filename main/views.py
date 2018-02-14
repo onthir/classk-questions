@@ -523,3 +523,6 @@ def no_results(request):
         'title': title,
     }
     return render(request, 'main/all-answered.html', context)
+# google verification
+def google(request):
+    return render(request, 'main/google1178e9883bf5717c.html')
