@@ -1,4 +1,11 @@
-{% extends 'main/base.html' %} {% load crispy_forms_tags %} {% block content %}
+{% extends 'main/base.html' %}
+
+{% block title %}
+    {{ question.category }} - {{ question.title }}
+{% endblock %}
+
+{% load crispy_forms_tags %} {% block content %}
+
 <div class="container">
     <div class="row">
         <div class="col-md-10">

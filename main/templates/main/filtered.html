@@ -1,4 +1,12 @@
-{% extends 'main/base.html' %} {% block content %} {% for s in questions %}
+{% extends 'main/base.html' %} 
+
+{% block title %}
+    {% for filter in questions %}
+    {{ filter.category }}- All Questions
+    {% endfor %}
+{% endblock %}
+
+{% block content %} {% for s in questions %}
 <h1 class="text-center display-4">{{ s.category }}</h1>
 <div class="container-fluid">
     <div class="row">

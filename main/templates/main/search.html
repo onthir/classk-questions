@@ -1,4 +1,10 @@
-{% extends 'main/base.html' %} {% block content %}
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block content %}
 <div class="container-fluid">
     <h1 id="brand">Search Results for '{{ query }}'. <i>Found {{ counted }} results</i></div>
 </h1>

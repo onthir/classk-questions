@@ -1,4 +1,10 @@
-{% extends 'main/base.html' %} {% load crispy_forms_tags %} {% block content %}
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Add Answer
+{% endblock %}
+
+{% load crispy_forms_tags %} {% block content %}
 
 <div class="container">
     <h1>{{ questions.title }}</h1>
