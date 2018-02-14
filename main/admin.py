@@ -17,6 +17,9 @@ def export_questions(modeladmin, request, queryset):
 export_questions.short_description = 'Export to csv'
 
 class QuestionAdmin(admin.ModelAdmin):
+    list_display = ('title', 'user', 'category', 'date')
+    list_filter = ('user', 'category', 'date')
+    search_fields = ('title', )
     prepopulated_fields = {'slug': ('title',)}
     actions = [export_questions, ]
 
