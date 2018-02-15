@@ -1,10 +1,4 @@
-{% extends 'main/base.html' %}
-
-{% block title %}
-    Ask Everything
-{% endblock %}
-
-{% block content %}
+{% extends 'main/base.html' %} {% block title %} Ask Everything {% endblock %} {% block content %}
 
 
 <!-- end of the message container -->
@@ -18,22 +12,20 @@
         <!-- trending column -->
 
         <div class="col-md-3 col-sm-12">
-      
+
             {% if not user.is_authenticated %}
             <div class="text-center">
                 <a href="{% url 'accounts:login' %}?next={% url 'main:ask-question' %}" class="btn btn-lg btn-info">Ask Question</a>
             </div>
-            <br>
-            {% else %}
+            <br> {% else %}
             <div class="text-center">
                 <a href="{% url 'main:ask-question' %}" class="btn btn-lg btn-warning">Ask Quesiton</a>
             </div>
-            <br>
-             {% endif %}
+            <br> {% endif %}
             <div id="qtns1">
 
                 <div class="qtns2">
-                    Trending Question: 
+                    Trending Question:
                     <a href="{% url 'main:details' trend.slug %}" id="trend_links">
                         <p>{{ trend }}</a> -
                     <i class="fas fa-user-circle"></i>
@@ -59,6 +51,14 @@
                 <!-- end all categories -->
             </div>
             <br>
+            <!-- ad -->
+            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle" style="display:block; text-align:center;" data-ad-layout="in-article" data-ad-format="fluid" data-ad-client="ca-pub-9886177219084453"
+                data-ad-slot="6421665636"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            <!-- end ad -->
         </div>
         <!-- end of trending column -->
         <div class="col-md-9 col-sm-12">
@@ -81,7 +81,7 @@
                     <a href="{% url 'accounts:profile' q.user %}" id="questions-user-link">{{ q.user }}</a>
                 </p>
                 <div class="text-right">
-                        <i>Viewed: {{ q.viewed }} times.</i>
+                    <i>Viewed: {{ q.viewed }} times.</i>
                     <p>Answers: {{q.num_answers}}</p>
                 </div>
                 <hr> {% endfor %}
