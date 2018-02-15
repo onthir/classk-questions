@@ -15,12 +15,12 @@ class Profile(models.Model):
     gender = models.CharField(choices=GENDER_CHOICES, max_length=8, default=None, null=True)
     bio = models.TextField(max_length=500, default=None, null=True)
     location = models.CharField(max_length=30, default=None, null=True)
-    birth_date = models.DateField(null=True, default=None)
+    birth_date = models.DateField(null=True,)
     points = models.IntegerField(default=0)
     viewes = models.IntegerField(default=0)
  
     def __str__(self):
-        return self.full_name
+        return self.user.username
 
 
 @receiver(post_save, sender=User)

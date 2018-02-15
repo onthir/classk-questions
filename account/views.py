@@ -16,14 +16,16 @@ def register(request):
             form = SignUpForm(request.POST)
             if form.is_valid():
                 user = form.save()
-                user.save()
                 user.refresh_from_db()  # load the profile instance created by the signal
                 user.profile.bio = request.POST.get('bio')
                 user.profile.full_name = request.POST.get('full_name')
                 user.profile.location = request.POST.get('location')
                 user.profile.email = request.POST.get('email')
                 user.profile.gender = request.POST.get('gender')
-                user.profile.birth_date = request.POST.get('birth_date')
+                if request.POST.get('birth_date') == '':
+                    user.profile.birth_date = '1111-11-11'
+                else:
+                    user.profile.birth_date = request.POST.get('birth_date')
                 user.profile.points = 10
     
                 user.profile.save()
