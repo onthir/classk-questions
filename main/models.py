@@ -38,6 +38,10 @@ class Question(models.Model):
             self.slug = self._get_unique_slug()
         super().save()
 
+    # for sitemaps
+    def get_absolute_url(self):
+        return '/details/%s' %self.slug
+
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     user = models.ForeignKey(User, default=None)

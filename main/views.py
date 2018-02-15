@@ -14,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Max
 from datetime import date
 from django.db.models import Q
-
+from django.contrib.sitemaps import Sitemap
 # Create your views here.
 trend_counter= []
 def home(request):
@@ -526,3 +526,14 @@ def no_results(request):
 # google verification
 def google(request):
     return render(request, 'main/google1178e9883bf5717c.html')
+
+# sitemap
+class QuestionSitemap(Sitemap):
+    changefreq = "always"
+    priority = 0.5
+
+    def items(self):
+        return Question.objects.all()
+
+    def lastmod(self, obj):
+        return obj.date
