@@ -397,3 +397,15 @@ ul {
     background: #007BFF;
     transition: 0.4s ease-in;
 }
+
+/* footer extra */
+.social-media-links{
+    padding: 10px;
+}
+
+.social-media-links a{
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+
+}
