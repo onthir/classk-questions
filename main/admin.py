@@ -23,7 +23,10 @@ class QuestionAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     actions = [export_questions, ]
 
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'message')
 
+admin.site.register(Contact, ContactAdmin)
 admin.site.register(Answer)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Category)

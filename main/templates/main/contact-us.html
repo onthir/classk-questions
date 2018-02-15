@@ -1,0 +1,66 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Contact Us
+{% endblock %}
+{% block content %}
+
+<!--CONTACT FORM GOES HERE -->
+
+<div class="jumbotron jumbotron-fluid" style="background:#003143;">
+        <div class="text-center text-white">
+            <h1>Contact</h1>
+            <div class="container">
+              <p>Please Fill up the form below to contact us.</p>
+            </div>
+        </div>
+      
+      </div>
+      
+      
+      <div class="py-3 mt-3"></div>
+      <div class="container">
+        <form action="", method="POST", enctype="multipart/form-data"> {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Full Name</label>
+            <input type="text" name="name" class="form-control" id="exampleFormControlInput1" placeholder="Name">
+          </div>
+       
+         
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Email Adresss</label>
+            <input type="email" name="email" class="form-control" id="exampleFormControlInput1" placeholder="Your E-mail">
+          </div>
+      
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1">Message</label>
+            <textarea class="form-control" name="message" id="exampleFormControlTextarea1" rows="5"></textarea>
+          </div>
+          <input type="submit" class="btn btn-outline-dark btn-lg" value="Submit" data-toggle="modal" data-target="#exampleModal">
+        </form>
+
+      </div>
+      <div class="py-3 mt-3"></div>
+      <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Message Received.</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Thanks for your message. We will definitely see the message and get back to you with response as soon a possible.
+            </div>
+
+          </div>
+        </div>
+      </div>
+      
+      
+      
+      <!-- CONTACT FORM ENDS HERE -->
+
+{% endblock %}

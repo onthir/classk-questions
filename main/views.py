@@ -15,6 +15,7 @@ from django.db.models import Max
 from datetime import date
 from django.db.models import Q
 from django.contrib.sitemaps import Sitemap
+import time
 # Create your views here.
 trend_counter= []
 def home(request):
@@ -523,6 +524,33 @@ def no_results(request):
         'title': title,
     }
     return render(request, 'main/all-answered.html', context)
+
+# contact us
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST or None)
+        if form.is_valid():
+            query = form.save(commit=False)
+            query.name = form.cleaned_data['name']
+            query.email = form.cleaned_data['email']
+            query.message = form.cleaned_data['message']
+            query.save()
+            return redirect('main:home')
+    else:
+        return render(request, 'main/contact-us.html')
+    return render(request, 'main/contact-us.html', {'form': form})
+
+# contacts
+def contact_view(request):
+    if request.user.is_superuser:
+        contacts = Contact.objects.all()
+        context = {
+            'contacts':contacts
+        }
+        return render(request, 'main/contact-view.html', context)
+    else:
+        return redirect("main:home")
+
 # google verification
 def google(request):
     return render(request, 'main/google1178e9883bf5717c.html')

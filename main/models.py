@@ -76,3 +76,11 @@ class Notification(models.Model):
 
     def __str__(self):
         return self.user.username
+
+class Contact(models.Model):
+    name = models.CharField(max_length=150)
+    email = models.EmailField(max_length=150)
+    message = models.TextField(max_length=500)
+    date = models.DateTimeField(default=timezone.now())
+    def __str__(self):
+        return self.name

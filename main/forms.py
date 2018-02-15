@@ -21,3 +21,8 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ('category',)
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ('email', 'name', 'message')

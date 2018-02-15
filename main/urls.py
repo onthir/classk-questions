@@ -23,5 +23,7 @@ urlpatterns = [
     url(r'^details/(?P<slug>[.\-\w]+)/(?P<id>\d+)/undo-irrelevant/$', views.undo_out_of_context, name='undo_irrelevant'),
     url(r'^satisfied/answers/all/$', views.all_satisfied, name='all_satisfied'),
     url(r'no-results/all/$', views.no_results, name='no_results'),
-    url(r'^google1178e9883bf5717c\.html/$', views.google, name='google')
+    url(r'^google1178e9883bf5717c\.html/$', views.google, name='google'),
+    url(r'^contact/$', views.contact, name='contact'),
+    url(r'^see-contacts/$', views.contact_view, name='contact_view')
 ]

@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+
+{% block title %}  
+    Contacts-Admin
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if contacts %}
+            {% for r in contacts %}
+                <h5>{{r.message}}</h5> - <a href="mailto:{{ r.email }}?Subject=Thank%20You%20For%20  Your%20Message" target="_top">{{ r.email }}</a>
+            {% endfor %}
+        {% else %}
+            <h5>No New Messages</h5>
+        {% endif %}
+    </div>
+{% endblock %}
