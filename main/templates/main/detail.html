@@ -93,7 +93,7 @@
             <br> {% endfor %}
             <h3>Post Your Own Answer</h3>
             {% if request.user.is_authenticated %}
-            <form action="" method="post">
+            <form action="" method="post" id="post-form">
                 {% csrf_token %} {{form |crispy}}
                 <input type="submit" value="Add Answer" class="btn btn-md btn-warning">
             </form>
@@ -123,4 +123,23 @@
     </div>
   
 </div>
+
+<script type="text/javascript">
+    var frm = $('#post-form');
+    frm.submit(function () {
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            data: frm.serialize(),
+            success: function (data) {
+                console.log("Success");
+            },
+            error: function(data) {
+                console.log("Error");
+            }
+        });
+        return false;
+    });
+</script>
+
 {% endblock %}
