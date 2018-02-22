@@ -41,7 +41,7 @@ def home(request):
     # PAGINATION ===============================
     page = request.GET.get('page', 1)
 
-    paginator = Paginator(results,4)
+    paginator = Paginator(results,10)
     try:
         results = paginator.page(page)
     except PageNotAnInteger:
@@ -486,7 +486,7 @@ def all_satisfied(request):
 
     # pagination
     page = request.GET.get('page', 1)
-    paginator = Paginator(all_satisfied,4)
+    paginator = Paginator(all_satisfied,10)
     try:
         all_satisfied = paginator.page(page)
     except PageNotAnInteger:
@@ -510,7 +510,7 @@ def no_results(request):
 
     # pagination
     page = request.GET.get('page', 1)
-    paginator = Paginator(all_satisfied,5)
+    paginator = Paginator(all_satisfied,10)
     try:
         all_satisfied = paginator.page(page)
     except PageNotAnInteger:
