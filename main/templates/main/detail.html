@@ -21,6 +21,11 @@
             </a>
             {% else %} {% endif %}
             <br>
+            <div class="social-media-links" style="padding:10px;">
+                <a href="http://www.facebook.com/sharer/sharer.php?u=http://classk.herokuapp.com{{ request.get_full_path|urlencode }}" target="_blank"> <i class="fab fa-facebook-square"></i> </a>
+                &nbsp;&nbsp;<a href="https://twitter.com/home?status=https://classk.heokuapp.com{{ request.get_full_path|urlencode }}" target="_blank"> <i class="fab fa-twitter"></i>  </a>
+                &nbsp;&nbsp; <a href="https://plus.google.com/share?url=http://classk.herokuapp.com{{ request.get_full_path|urlencode }}" target="_blank"> <i class="fab fa-google-plus-g"></i> </a>
+            </div>
             <i>Viewed: {{ viewed }} times.</i>
             <p>{{ question.date }}</p>
 
