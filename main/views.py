@@ -94,6 +94,8 @@ def question(request):
         lists = Category.objects.all().order_by("category")
         if request.method == 'POST':
             title = request.POST.get('title')
+            if not title:
+                raise ValueError('Please add a suitable title.')
             description = request.POST.get('description')
             user = request.user
             date =  timezone.now()
