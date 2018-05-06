@@ -64,7 +64,7 @@
                 {% if a.satisfied %}
                 <p class="badge badge-success">Marked Satisfied</p>
                 {% if request.user == question.user %}
-                <a href="{% url 'main:undo_satisfied' slug=question.slug id=a.id%}">
+                <a href="{% url 'main:undo_satisfied' slug=question.slug id=a.id%}" id="undo">
                     <i class="fas fa-undo"></i>
                 </a>
                 {% endif %} {% else %}
