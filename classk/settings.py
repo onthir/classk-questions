@@ -27,9 +27,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'l3sxqgsh$8p&$r8o*tkc8@-%3_uh9p)9#psjju92ac$^fydzl8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['onthir.com', 'classk.herokuapp.com', 'localhost']
 
 
 # Application definition
