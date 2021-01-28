@@ -29,14 +29,13 @@ SECRET_KEY = 'l3sxqgsh$8p&$r8o*tkc8@-%3_uh9p)9#psjju92ac$^fydzl8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['onthir.com', 'classk.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['www.onthir.com', 'classk.herokuapp.com', 'localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'jet',
-    'jet.dashboard',
+
     'django.contrib.sitemaps',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -131,7 +130,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 

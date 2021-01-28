@@ -17,7 +17,7 @@ class Question(models.Model):
     description = models.TextField(max_length=3000)
     slug = models.SlugField(max_length=140, unique=True)
     date = models.DateTimeField(null=True, default=timezone.now())
-    category = models.ForeignKey(Category, null=True, default=None)
+    category = models.ForeignKey(Category, null=True, default=None, on_delete=models.CASCADE)
     satisfied = models.BooleanField(default=False)
     viewed = models.IntegerField(default=0)
     
@@ -44,7 +44,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, default=None)
+    user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
     answer = models.TextField(max_length=3000, null=True)
     posted_on = models.DateField(default=datetime.datetime.now().date())
     satisfied = models.BooleanField(default=False)

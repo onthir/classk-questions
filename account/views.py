@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from django.core.urlresolvers import reverse
 from .forms import SignUpForm, UpdateProfileForm
 from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.models import User
@@ -69,9 +68,8 @@ def login_user(request):
 # logout user
 def logout_user(request):
     if request.user.is_authenticated:
-        logout(request)
-        url = reverse("accounts:login")
-        return redirect(url, args=(),kwargs={})
+        logout(request, user)
+        return redirect("accounts:login")
     else:
         return redirect("accounts:login")
 

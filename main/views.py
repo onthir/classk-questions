@@ -20,7 +20,7 @@ import time
 trend_counter= []
 def home(request):
     questions = Question.objects.all().order_by("-date")
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         notifications = Notification.objects.filter(user=request.user, read=False)
         notif_counts = notifications.count()
 
@@ -55,8 +55,12 @@ def home(request):
         po = t.viewed
         trend_counter.append(po)
     new_trend = sorted(trend_counter)
-    trend_index = new_trend[len(new_trend)-1]
-    trend = Question.objects.get(viewed=trend_index)
+    trend = None
+    try:
+        trend_index = new_trend[len(new_trend)-1]
+        trend = Question.objects.get(viewed=trend_index)
+    except:
+        pass
     # points of the users
     # search the questions ============
     query= request.GET.get("q")
@@ -112,7 +116,7 @@ def question(request):
 # details for the question
 def details(request, slug):
     # setting notifications for the page
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         notifications = Notification.objects.filter(user=request.user, read=False)
         notif_counts = notifications.count()
 
@@ -163,7 +167,7 @@ def details(request, slug):
             return HttpResponseRedirect('/details/%s' %slug)
 
     # notifications
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         notification = Notification.objects.filter(user=request.user, read=False)
         for n in notification:
             if n.question.slug == slug:
@@ -190,7 +194,7 @@ def details(request, slug):
 
 # delete question
 def delete(request, slug):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         instance = get_object_or_404(Question, slug=slug)
         if request.user == instance.user:
             instance.delete()
@@ -224,7 +228,7 @@ def edit_details(request, slug):
 # update answer
 def update_answer(request, slug, id):
     # test user login here
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         quest = Question.objects.get(slug=slug)
         try:
             answer = Answer.objects.get(user=request.user, question_id=quest.id, id=id)
@@ -249,7 +253,7 @@ def update_answer(request, slug, id):
 
 # delete answer by the user
 def delete_answer(request, slug, id):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         quest = Question.objects.get(slug=slug)
         try:
             answer = Answer.objects.get(user=request.user, question_id=quest.id, id=id)
@@ -283,7 +287,7 @@ def tutorial(request):
 
 # request a topic
 def request_topic(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         if request.method == 'POST':
             user = request.user
             title = request.POST.get('title')
@@ -310,7 +314,7 @@ def display_request(request):
 
 # answer satisfied
 def satisfied(request, slug, id, *args, **kwargs):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         question = Question.objects.get(slug=slug)
         answer = Answer.objects.get(question_id=question.id, id=id) #and get the specific answer id or something
         profile = Profile.objects.get(user=answer.user)
@@ -344,7 +348,7 @@ def satisfied(request, slug, id, *args, **kwargs):
         
 # irrelevant answer
 def out_of_context(request, slug, id, *args, **kwargs):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         question = Question.objects.get(slug=slug)
         answer = Answer.objects.get(question_id=question.id, id=id) #and get the specific answer id or something
         profile = Profile.objects.get(user=answer.user)
@@ -398,7 +402,7 @@ def add_categorys(request):
 
 # undo the satisfied
 def undo_satisfied(request, slug, id, *args, **kwargs):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         question = Question.objects.get(slug=slug)
         answer = Answer.objects.get(question_id=question.id, id=id) #and get the specific answer id or something
         profile = Profile.objects.get(user=answer.user)
@@ -432,7 +436,7 @@ def undo_satisfied(request, slug, id, *args, **kwargs):
         return redirect("accounts:login")
 # undo irrelevant
 def undo_out_of_context(request, slug, id, *args, **kwargs):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         question = Question.objects.get(slug=slug)
         answer = Answer.objects.get(question_id=question.id, id=id) #and get the specific answer id or something
         profile = Profile.objects.get(user=answer.user)
@@ -457,7 +461,7 @@ def undo_out_of_context(request, slug, id, *args, **kwargs):
 user = []
 points = []
 def hall_of_fame(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         total_questions = Question.objects.all().count()
         total_answers = Answer.objects.all().count()
         total_users = User.objects.all().count()
