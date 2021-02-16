@@ -76,7 +76,7 @@ def logout_user(request):
 # user profile
 
 def profile(request, user):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         global visits
         global points
         
