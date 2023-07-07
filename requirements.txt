@@ -1,7 +1,7 @@
 dj-database-url==0.4.1
 Django
 gunicorn==19.6.0
-psycopg2==2.7.3.1
+psycopg2-binary==2.8.6
 whitenoise
 django-ckeditor
 django-crispy-forms
